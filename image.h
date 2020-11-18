@@ -22,6 +22,6 @@ typedef struct image{
 	PIXEL *pixels;
 }IMAGE;
 
-IMAGE * init_image(FILE *file,char *fileName);
+IMAGE * initImage(FILE *file,char *fileName);
 
 #endif
