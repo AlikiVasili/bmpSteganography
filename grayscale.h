@@ -7,9 +7,12 @@
 #ifndef GRAYSCALE_H
 #define GRAYSCALE_H
 
-void grayscale_filter(FILE img);
+#include "image.h"
+
+void grayscale_filter(IMAGE img);
 int calculate_luminance(byte red,byte green,byte blue);
-bytes * read_pixel(FILE img);
-void change_pixel(FILE img);
+//bytes * read_pixel(IMAGE img);
+void change_pixel(PIXEL *pixel);
+int my_round(double x);
 
 #endif
