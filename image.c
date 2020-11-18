@@ -34,6 +34,8 @@ IMAGE * initImage(FILE *file,char *fileName){
 		padding_pixels = padding_pixels * (image -> header -> bmpInfoHeader -> biHeight);
 	}
 	
+	image -> padding_pixels = padding_pixels;
+	
 	//find how much pixels the image has
 	int how_much_pixels = (image -> header -> bmpInfoHeader -> biWidth) * (image -> header -> bmpInfoHeader -> biHeight);
 	how_much_pixels = how_much_pixels + padding_pixels;
@@ -46,6 +48,7 @@ IMAGE * initImage(FILE *file,char *fileName){
 		fread(&(image -> pixels[i].byte2), sizeof(byte), 1 , file);
 		fread(&(image -> pixels[i].byte3), sizeof(byte), 1 , file);
 	}
+	
 	
 	return image;
 }

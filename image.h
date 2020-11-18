@@ -45,6 +45,7 @@ typedef struct header{
 typedef struct image{
 	HEADER *header;
 	PIXEL *pixels;
+	int padding_pixels;
 }IMAGE;
 
 IMAGE * initImage(FILE *file,char *fileName);

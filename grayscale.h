@@ -9,10 +9,10 @@
 
 #include "image.h"
 
-void grayscale_filter(IMAGE img);
+void grayscale_filter(IMAGE *image, char *file);
 int calculate_luminance(byte red,byte green,byte blue);
 //bytes * read_pixel(IMAGE img);
-void change_pixel(PIXEL *pixel);
+void change_pixel(PIXEL pixel);
 int my_round(double x);
 
 #endif
