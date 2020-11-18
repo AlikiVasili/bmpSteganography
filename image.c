@@ -4,6 +4,8 @@ IMAGE * initImage(FILE *file,char *fileName){
 	IMAGE *image = NULL;
 	image = (IMAGE *)malloc(sizeof(IMAGE));
 	image->header = (HEADER *)malloc(sizeof(HEADER)); //Need space for header
+	image -> header -> bmpFileHeader =(BMPFILEHEADER *) malloc(sizeof(byte)*14);
+	image -> header -> bmpInfoHeader =(BMPINFOHEADER *) malloc(sizeof(byte)*40);
 
 	
 	if(image == NULL){
@@ -15,12 +17,10 @@ IMAGE * initImage(FILE *file,char *fileName){
 		printf("File %s cannot be opened!\n", fileName);
 		return NULL;
 	}
-	image->header->bitmapfileheader = malloc(sizeof(byte)*14);	//Need to allocate space for bitmapfileheader
-	fread(image -> header -> bitmapfileheader,sizeof(byte), 14, file);
-	image->header->bitmapinfoheader = malloc(sizeof(byte)*40);//Need to allocate space for bitmapinfoheader
-	fread(image -> header -> bitmapinfoheader,sizeof(byte), 40, file);
-	unsigned int width = (unsigned int)(image ->header->bitmapinfoheader[4]),height=(unsigned int)(image ->header->bitmapinfoheader[8]);
-	printf("%ux%u\n",width,height);
+	//image->header->bitmapfileheader = malloc(sizeof(byte)*14);	//Need to allocate space for bitmapfileheader
+	fread(image -> header -> bmpFileHeader,sizeof(byte)*14, 1, file);
+	//image->header->bitmapinfoheader = malloc(sizeof(byte)*40);//Need to allocate space for bitmapinfoheader
+	fread(image -> header -> bmpInfoHeader,sizeof(byte)*40, 1, file);
 	return image;
 }
 
