@@ -24,7 +24,7 @@ IMAGE * initImage(FILE *file,char *fileName){
 	fread(&(image -> header -> bmpFileHeader ->bfReserved2),sizeof(word), 1, file);
 	fread(&(image -> header -> bmpFileHeader ->bfOffBits),sizeof(dword), 1, file);
 
-	fread(image -> header -> bmpInfoHeader,sizeof(BMPINFOHEADER)*40, 1, file);
+	fread(image -> header -> bmpInfoHeader,sizeof(BMPINFOHEADER), 1, file);
 	return image;
 }
 
