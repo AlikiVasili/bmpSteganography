@@ -4,8 +4,8 @@ IMAGE * initImage(FILE *file,char *fileName){
 	IMAGE *image = NULL;
 	image = (IMAGE *)malloc(sizeof(IMAGE));
 	image->header = (HEADER *)malloc(sizeof(HEADER)); //Need space for header
-	image -> header -> bmpFileHeader =(BMPFILEHEADER *) malloc(sizeof(byte)*14);
-	image -> header -> bmpInfoHeader =(BMPINFOHEADER *) malloc(sizeof(byte)*40);
+	image -> header -> bmpFileHeader =(BMPFILEHEADER *) malloc(sizeof(BMPFILEHEADER));
+	image -> header -> bmpInfoHeader =(BMPINFOHEADER *) malloc(sizeof(BMPINFOHEADER));
 
 	
 	if(image == NULL){
@@ -17,10 +17,14 @@ IMAGE * initImage(FILE *file,char *fileName){
 		printf("File %s cannot be opened!\n", fileName);
 		return NULL;
 	}
-	//image->header->bitmapfileheader = malloc(sizeof(byte)*14);	//Need to allocate space for bitmapfileheader
-	fread(image -> header -> bmpFileHeader,sizeof(byte)*14, 1, file);
-	//image->header->bitmapinfoheader = malloc(sizeof(byte)*40);//Need to allocate space for bitmapinfoheader
-	fread(image -> header -> bmpInfoHeader,sizeof(byte)*40, 1, file);
+	fread(&(image -> header -> bmpFileHeader ->bfType1),sizeof(byte), 1, file);
+	fread(&(image -> header -> bmpFileHeader ->bfType2),sizeof(byte), 1, file);
+	fread(&(image -> header -> bmpFileHeader ->bfSize),sizeof(dword), 1, file);
+	fread(&(image -> header -> bmpFileHeader ->bfReserved1),sizeof(word), 1, file);
+	fread(&(image -> header -> bmpFileHeader ->bfReserved2),sizeof(word), 1, file);
+	fread(&(image -> header -> bmpFileHeader ->bfOffBits),sizeof(dword), 1, file);
+
+	fread(image -> header -> bmpInfoHeader,sizeof(BMPINFOHEADER)*40, 1, file);
 	return image;
 }
 

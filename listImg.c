@@ -6,7 +6,6 @@
 void list(IMAGE *img){
     printf("BITMAP_FILE_HEADER\n");
     printf("==================\n");
-
     printf("bfType: %c%c\n", img -> header -> bmpFileHeader -> bfType1, img -> header -> bmpFileHeader -> bfType2 ); 
     printf("bfSize: %u\n", img -> header -> bmpFileHeader -> bfSize);                                         
     printf("bfReserved1: %hu\n",img -> header -> bmpFileHeader -> bfReserved1);                                     
