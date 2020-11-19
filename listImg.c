@@ -1,7 +1,7 @@
-/** @file listImg.h
+/** @file listImg.c
  *  @author Panagiotis Papadopoulos
  */ 
-#include "image.h"
+#include "listImg.h"
 
 void list(IMAGE *img){
     printf("BITMAP_FILE_HEADER\n");
