@@ -1,10 +1,10 @@
 /**
- * @file EncodeStegano.c
+ * @file encodeStegano.c
  * @author Panagiotis Papadopoulos
  * @brief This file contains the source code for the encodeStegano library.
  * 
  */
-#include "image.h"
+#include "encodeStegano.h"
 
 void encodeStegano(IMAGE *cover, IMAGE *secret, unsigned short int bitNum, char *newFileName ){
     if(cover==NULL || secret == NULL)
@@ -20,8 +20,8 @@ void encodeStegano(IMAGE *cover, IMAGE *secret, unsigned short int bitNum, char 
     int i;
     //Create proper mask based on bits requested.
     for(i=1;i<bitNum;i++){
-        getHighBits = getHighBits >> 1;
-        getHighBits+=128;  
+        getHighBits = getHighBits >> 1; //Shift thebits right by 1
+        getHighBits+=128;  //Set the msb to 1 again.
     }
     int pixelCount = getPixelAmount(cover);
     byte temp; 
