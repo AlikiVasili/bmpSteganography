@@ -6,7 +6,8 @@
  */
 #include "encodeStegano.h"
 
-void encodeStegano(IMAGE *cover, IMAGE *secret, unsigned short int bitNum, char *newFileName ){
+void encodeStegano(const IMAGE *coverImage, const IMAGE *secret, unsigned short int bitNum, char *newFileName ){
+    IMAGE *cover = copyImage(coverImage);
     if(cover==NULL || secret == NULL)
         return;
     byte getHighBits = 128; //default 1 bit to move = 1 0 0 0 0 0 0 0
