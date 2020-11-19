@@ -48,6 +48,7 @@ typedef struct image{
 	int padding_pixels;
 }IMAGE;
 
-IMAGE * initImage(FILE *file,char *fileName);
+IMAGE *initImage(FILE *file,char *fileName);
+void saveImage(IMAGE *src, char *imageName);
 
 #endif

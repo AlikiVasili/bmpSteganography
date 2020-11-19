@@ -30,7 +30,7 @@ IMAGE * initImage(FILE *file,char *fileName){
 	int temp = 0;
 	temp = ((image -> header -> bmpInfoHeader -> biWidth)*3) % 4;
 	if(temp != 0){
-		padding_pixels = 4 - temp;
+		padding_pixels = temp;
 		padding_pixels = padding_pixels * (image -> header -> bmpInfoHeader -> biHeight);
 	}
 	
@@ -41,7 +41,7 @@ IMAGE * initImage(FILE *file,char *fileName){
 	how_much_pixels = how_much_pixels + padding_pixels;
 	//reseve space in memory from the pixels
 	image -> pixels = (PIXEL *)malloc(how_much_pixels * sizeof(PIXEL));
-	
+
 	int i = 0;
 	for(i = 0; i<how_much_pixels ; i++){
 		fread(&(image -> pixels[i].byte1), sizeof(byte), 1 , file);
@@ -53,10 +53,35 @@ IMAGE * initImage(FILE *file,char *fileName){
 	return image;
 }
 
+void saveImage(IMAGE *src, char *imageName){
+	FILE *output = fopen(imageName,"wb");
+
+	fwrite(&(src -> header -> bmpFileHeader ->bfType1),sizeof(byte), 1, output);
+	fwrite(&(src -> header -> bmpFileHeader ->bfType2),sizeof(byte), 1, output);
+	fwrite(&(src -> header -> bmpFileHeader ->bfSize),sizeof(dword), 1, output);
+	fwrite(&(src -> header -> bmpFileHeader ->bfReserved1),sizeof(word), 1, output);
+	fwrite(&(src -> header -> bmpFileHeader ->bfReserved2),sizeof(word), 1, output);
+	fwrite(&(src -> header -> bmpFileHeader ->bfOffBits),sizeof(dword), 1, output);
+
+	fwrite(src->header->bmpInfoHeader,sizeof(BMPINFOHEADER),1,output);
+
+	int pixelCount = (src -> header -> bmpInfoHeader -> biWidth) * (src -> header -> bmpInfoHeader -> biHeight);
+	pixelCount = pixelCount + src->padding_pixels;
+	int i=0;
+
+	for(i=0;i<pixelCount;i++){
+		fwrite(&(src->pixels[i].byte1),sizeof(byte),1,output);
+		fwrite(&(src->pixels[i].byte2),sizeof(byte),1,output);
+		fwrite(&(src->pixels[i].byte3),sizeof(byte),1,output);
+	}
+	fclose(output);
+}
+
 #ifdef DEBUG
 int main(){
 	FILE *f = NULL;
-	IMAGE *img = initImage(f,"4x3.bmp");
+	IMAGE *img = initImage(f,"image3.bmp");
 	printf("%c\n", img -> pixels[0].byte2);
+	saveImage(img,"testing.bmp");
 }
 #endif
