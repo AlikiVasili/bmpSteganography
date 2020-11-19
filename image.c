@@ -1,6 +1,11 @@
 #include "image.h"
 
-IMAGE * initImage(FILE *file,char *fileName){
+int getPixelAmount(IMAGE *src){
+	return src->padding_pixels + src->header->bmpInfoHeader->biHeight * src->header->bmpInfoHeader->biWidth;
+}
+
+IMAGE * initImage(char *fileName){
+	FILE *file=NULL;
 	IMAGE *image = NULL;
 	image = (IMAGE *)malloc(sizeof(IMAGE));
 	image->header = (HEADER *)malloc(sizeof(HEADER)); //Need space for header
@@ -68,7 +73,7 @@ void saveImage(IMAGE *src, char *imageName){
 	int pixelCount = (src -> header -> bmpInfoHeader -> biWidth) * (src -> header -> bmpInfoHeader -> biHeight);
 	pixelCount = pixelCount + src->padding_pixels;
 	int i=0;
-
+	
 	for(i=0;i<pixelCount;i++){
 		fwrite(&(src->pixels[i].byte1),sizeof(byte),1,output);
 		fwrite(&(src->pixels[i].byte2),sizeof(byte),1,output);
@@ -79,8 +84,7 @@ void saveImage(IMAGE *src, char *imageName){
 
 #ifdef DEBUG
 int main(){
-	FILE *f = NULL;
-	IMAGE *img = initImage(f,"image3.bmp");
+	IMAGE *img = initImage("image3.bmp");
 	printf("%c\n", img -> pixels[0].byte2);
 	saveImage(img,"testing.bmp");
 }
