@@ -49,8 +49,8 @@ typedef struct image{
 }IMAGE;
 
 IMAGE *initImage(char *fileName);
-IMAGE *copyImage(IMAGE *src);
-void saveImage(IMAGE *src, char *imageName);
-int getPixelAmount(IMAGE *src);
+IMAGE *copyImage(const IMAGE *src);
+void saveImage(const IMAGE *src, char *imageName);
+int getPixelAmount(const IMAGE *src);
 
 #endif
