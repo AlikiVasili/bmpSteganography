@@ -49,6 +49,7 @@ typedef struct image{
 }IMAGE;
 
 IMAGE *initImage(char *fileName);
+IMAGE *copyImage(IMAGE *src);
 void saveImage(IMAGE *src, char *imageName);
 int getPixelAmount(IMAGE *src);
 
