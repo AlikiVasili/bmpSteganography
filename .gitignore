@@ -25,3 +25,11 @@ tux-bonaparte.bmp
 tux-pirate.bmp
 testing.bmp
 testingDecode.bmp
+image1_grayscale.bmp
+bmpLib.a
+decodeStegano.o
+encodeStegano.o
+encodeText.o
+grayscale.o
+image.o
+listImg.o
