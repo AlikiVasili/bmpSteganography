@@ -20,4 +20,8 @@
  */
 int getBit(char *m, int n);
 
+int * createPermutationFunction(int N, unsigned int systemkey);
+
+void encodeText(IMAGE *image, char *text);
+
 #endif
