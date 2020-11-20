@@ -1,6 +1,6 @@
 #include "encodeText.h"
 
-void encodeText(IMAGE *image, char *m){
+void encodeText(IMAGE *image, char *m,char *filename){
 	int i = 0;
 	int b = 0, o = 0;
 	//systemkey = 100
@@ -30,7 +30,6 @@ void encodeText(IMAGE *image, char *m){
 		}
 		
 	}
-	char *filename = "new-image.bmp";
 	
 	saveImage(cover , filename);
 	
@@ -107,6 +106,6 @@ int main(){
 	//printf("%d\n", getBit("Hello World my name is alice" , 10));
 	//createPermutationFunction(5,15);
 	IMAGE *img = initImage("tux-bonaparte.bmp");
-	encodeText(img , "Hello");
+	encodeText(img , "Hello", "new-tux-bonaparte.bmp");
 }
 #endif
