@@ -43,6 +43,6 @@ int calculate_luminance(byte red,byte green,byte blue){
 #ifdef DEBUG2
 int main(){
 	IMAGE *img = initImage("image1.bmp");
-	grayscale_filter(img,"newcoverImage.bmp");
+	grayscale_filter(img,"image1_grayscale.bmp");
 }
 #endif
