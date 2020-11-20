@@ -6,20 +6,20 @@ void grayscale_filter(IMAGE *image, char *file){
 		return;
 	
 	//make a copy of the image
-	IMAGE *copy = copyImage(image);
+	IMAGE *cover = copyImage(image);
 	int i = 0 ;
 	int gray_version = 0;
 	//go through all the pixels of the image
-	for(i = 0 ; i < getPixelAmount(copy); i++){
+	for(i = 0 ; i < getPixelAmount(cover); i++){
 		//calculate the luminance of the current pixel and save it to the gray_version
-		gray_version = calculate_luminance(copy -> pixels[i].byte1 , copy -> pixels[i].byte2 , copy -> pixels[i].byte3);
+		gray_version = calculate_luminance(cover -> pixels[i].byte1 , cover -> pixels[i].byte2 , cover -> pixels[i].byte3);
 		//change all the bytes of the pixel to the pixel's gray_version
-		copy -> pixels[i].byte1 = (unsigned char)gray_version;
-		copy -> pixels[i].byte2 = (unsigned char)gray_version;
-		copy -> pixels[i].byte3 = (unsigned char)gray_version;
+		cover -> pixels[i].byte1 = (unsigned char)gray_version;
+		cover -> pixels[i].byte2 = (unsigned char)gray_version;
+		cover -> pixels[i].byte3 = (unsigned char)gray_version;
 	}
 	//save the copy image
-	saveImage(copy,file);
+	saveImage(cover,file);
 }
 
 int my_round(double x){
@@ -43,6 +43,6 @@ int calculate_luminance(byte red,byte green,byte blue){
 #ifdef DEBUG2
 int main(){
 	IMAGE *img = initImage("image1.bmp");
-	grayscale_filter(img,"image1_copy.bmp");
+	grayscale_filter(img,"newcoverImage.bmp");
 }
 #endif
