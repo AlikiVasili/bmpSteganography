@@ -17,16 +17,16 @@ void encodeText(IMAGE *image, char *m,char *filename){
 		//delete the lsb of the o byte of the table of the pixels
 		//then make it equal to b
 		if((o%3) == 0){
-			cover -> pixels[o/3].byte1 = (cover -> pixels[o/3].byte1) ^ 1; 
-			cover -> pixels[o/3].byte1 = b;
+			cover -> pixels[o/3].byte1 = (cover -> pixels[o/3].byte1) & 254 ; 
+			cover -> pixels[o/3].byte1 = (cover -> pixels[o/3].byte1) | b;
 		}
 		else if((o%3) == 1){
-			cover -> pixels[o/3].byte2 = (cover -> pixels[o/3].byte2) ^ 1; 
-			cover -> pixels[o/3].byte2 = b;
+			cover -> pixels[o/3].byte2 = (cover -> pixels[o/3].byte2) & 254; 
+			cover -> pixels[o/3].byte2 = (cover -> pixels[o/3].byte2) | b;
 		}
 		else{
-			cover -> pixels[o/3].byte3 = (cover -> pixels[o/3].byte3) ^ 1; 
-			cover -> pixels[o/3].byte3 = b;
+			cover -> pixels[o/3].byte3 = (cover -> pixels[o/3].byte3) & 254; 
+			cover -> pixels[o/3].byte3 = (cover -> pixels[o/3].byte3) | b;
 		}
 		
 	}
