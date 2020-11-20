@@ -20,8 +20,24 @@
  */
 int getBit(char *m, int n);
 
+/**
+ *	@brief This function create a permutation.
+ *
+ *	@param N An integer number which shows the size of the table we want to create.
+ *	@param systemkey An unsigned integer in which the permutation is based.
+ *
+ *	@return the table that we create.
+ */
 int * createPermutationFunction(int N, unsigned int systemkey);
 
-void encodeText(IMAGE *image, char *text);
+/**
+ *	@brief This function encode a text to an image.
+ *
+ *	@param image The image where the text will be encode.
+ *	@param text The text we want to hide in the image.
+ *
+ *	@return Void.
+ */
+void encodeText(IMAGE *image, char *text,char *filename);
 
 #endif
