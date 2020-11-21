@@ -68,8 +68,31 @@ int main(int argc, char *argv[]){
         free(filename);
         deleteImage(cover);
         deleteImage(secret);
-
     }
+    if(strcmp(argv[1],"-decodeStegano")==0){
+        int  bits = atoi(argv[2]);
+        if(bits<=0){
+            printf("Incorrect format or input. Correct format is –encodeStegano nbBits encryptedImage.bmp\n");
+            return EXIT_FAILURE;
+        }
+        IMAGE *cover = initImage(argv[3]);
+        if(cover==NULL){
+            printf("Incorrect format or input. Correct format is –encodeStegano nbBits encryptedImage.bmp\n");
+            return EXIT_FAILURE;
+        }
+        char *filename = malloc(sizeof(char)*(strlen(argv[3])+4));
+        strcpy(filename,"new-");
+        strcat(filename,argv[3]);
+        decodeStegano(cover,bits,filename);
+        free(filename);
+        deleteImage(cover);
+        return 0;
+    }
+    if(strcmp(argv[1],"-encodeText")==0){
+        return 0;
+    }
+
+
 
 
     return 0;
