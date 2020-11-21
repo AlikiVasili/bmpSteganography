@@ -50,6 +50,9 @@ typedef struct image{
 }IMAGE;
 
 IMAGE *initImage(char *fileName);
+void deleteImage(IMAGE *img);
+int isBmp(IMAGE *img);
+int isUncompressed24bit(IMAGE *img);
 IMAGE *copyImage(const IMAGE *src);
 void saveImage(const IMAGE *src, char *imageName);
 int getPixelAmount(const IMAGE *src);

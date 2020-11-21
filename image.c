@@ -1,5 +1,33 @@
 #include "image.h"
 
+void deleteImage(IMAGE *img){
+	if(img==NULL)
+		return;
+	free(img->header->bmpFileHeader);
+	free(img->header->bmpInfoHeader);
+	free(img->header);
+	free(img->pixels);
+	free(img);
+}
+int isBmp(IMAGE *img){
+	if(img==NULL)
+		return 0;
+	if(img->header==NULL)
+		return 0;
+	if(img->header->bmpFileHeader==NULL)
+		return 0;
+	if(img->header->bmpFileHeader->bfType1 == 'B' && img->header->bmpFileHeader->bfType2 == 'M')
+		return 1;
+	return 0;
+}
+int isUncompressed24bit(IMAGE *img){
+	if(!isBmp(img))
+		return 0;
+	if(img->header->bmpInfoHeader->biBitCount == 24 && img->header->bmpInfoHeader->biCompression == 0)
+		return 1;
+	return 0;
+}
+
 IMAGE *copyImage(const IMAGE *src){
 	//Initialize new image.
 	IMAGE *cpy = NULL;
@@ -70,7 +98,6 @@ IMAGE * initImage(char *fileName){
 	fread(&(image -> header -> bmpFileHeader ->bfReserved2),sizeof(word), 1, file);
 	fread(&(image -> header -> bmpFileHeader ->bfOffBits),sizeof(dword), 1, file);
 
-	//fread(image -> header -> bmpInfoHeader,sizeof(BMPINFOHEADER), 1, file);
 	fread(&(image -> header -> bmpInfoHeader->biSize),sizeof(dword), 1, file);
 	fread(&(image -> header -> bmpInfoHeader->biWidth),sizeof(dword), 1, file);
 	fread(&(image -> header -> bmpInfoHeader->biHeight),sizeof(dword), 1, file);
@@ -82,6 +109,9 @@ IMAGE * initImage(char *fileName){
 	fread(&(image -> header -> bmpInfoHeader->biYPelsPerMeter),sizeof(dword), 1, file);
 	fread(&(image -> header -> bmpInfoHeader->biClrUsed),sizeof(dword), 1, file);
 	fread(&(image -> header -> bmpInfoHeader->biClrImportant),sizeof(dword), 1, file); 
+
+	if(!isUncompressed24bit(image))
+		return NULL;
 	
 	//see if there are padding pixels and calcuate how many.
 	int padding_pixels = 0;
@@ -107,7 +137,6 @@ IMAGE * initImage(char *fileName){
 		fread(&(image -> pixels[i].byte2), sizeof(byte), 1 , file);
 		fread(&(image -> pixels[i].byte3), sizeof(byte), 1 , file);
 	}
-	
 	
 	return image;
 }
