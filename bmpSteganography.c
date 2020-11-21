@@ -14,6 +14,18 @@
 #include "grayscale.h"
 #include "listImg.h"
 
+static void listOptions(){
+    printf("Available functions:\n");
+    printf("-list image1.bmp [image2.bmp image3.bmp ...]\n");
+    printf("-grayscale image1.bmp [image2.bmp image3.bmp ...]\n");
+    printf("-encodeStegano numOffBits coverImg.bmp secretImage.bmp\n");
+    printf("-decodeStegano numOffBits encryptedImage.bmp\n");
+    printf("–encodeText coverImage.bmp inputText.txt\n");
+    printf("–decodeText encryptedImage.bmp msgLength output.txt\n");
+    printf("–stringToImage sampleImage.bmp inputText.txt\n");
+    printf("–stringToImage sampleImage.bmp inputText.txt\n");
+}
+
 int main(int argc, char *argv[]){
     //printf("%d\n",argc);
     if(argc<=2){
@@ -21,6 +33,7 @@ int main(int argc, char *argv[]){
         printf("\nThis is free software; you can redistribute it and/or\n");
         printf("modify it under the terms of the GNU General Public\n");
         printf("License, see the file COPYING.\n\n");
+        listOptions();
         printf("No options or neccessary files given. Exiting.\n");
         return EXIT_FAILURE;
     }
@@ -28,7 +41,7 @@ int main(int argc, char *argv[]){
     if(strcmp(argv[1],"-list")==0){
         for(i=2;i<argc;i++){
             IMAGE *img = initImage(argv[i]);
-            if(isUncompressed24bit(img)){
+            if(img!=NULL){
                 list(img);
                 printf("\n************************************************************\n");
             }
