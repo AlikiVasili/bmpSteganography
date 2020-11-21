@@ -8,7 +8,7 @@ void encodeText(IMAGE *image, char *m,char *filename){
 	//create the cover image
 	IMAGE *cover = copyImage(image);
 	
-	for(i = 0; i < ( 1 * strlen(m) * 8); i++){
+	for(i = 0; i < ( 1 + strlen(m) * 8); i++){
 		//find b
 		b = getBit(m , i);
 		//find o
