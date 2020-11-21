@@ -3,12 +3,13 @@
 void encodeText(IMAGE *image, char *m,char *filename){
 	int i = 0;
 	int b = 0, o = 0;
+	int msgBitLength = ( 1 + strlen(m) )* 8;
 	//systemkey = 100
-	int *permutation = createPermutationFunction(strlen(m) * 8 , 100);
+	int *permutation = createPermutationFunction(getPixelAmount(image), 100);
 	//create the cover image
 	IMAGE *cover = copyImage(image);
 	
-	for(i = 0; i < ( 1 * strlen(m) * 8); i++){
+	for(i = 0; i < msgBitLength; i++){
 		//find b
 		b = getBit(m , i);
 		//find o
@@ -16,19 +17,19 @@ void encodeText(IMAGE *image, char *m,char *filename){
 		
 		//delete the lsb of the o byte of the table of the pixels
 		//then make it equal to b
-		if((o%3) == 0){
-			cover -> pixels[o/3].byte1 = (cover -> pixels[o/3].byte1) & 254 ; 
-			cover -> pixels[o/3].byte1 = (cover -> pixels[o/3].byte1) | b;
+		int pByte = (o%3); 
+		if(pByte == 0){
+			cover -> pixels[o/3].byte3 = (cover -> pixels[o/3].byte3) & 254; 
+			cover -> pixels[o/3].byte3 = (cover -> pixels[o/3].byte3) | b;
 		}
-		else if((o%3) == 1){
+		else if(pByte ==2){
 			cover -> pixels[o/3].byte2 = (cover -> pixels[o/3].byte2) & 254; 
 			cover -> pixels[o/3].byte2 = (cover -> pixels[o/3].byte2) | b;
 		}
 		else{
-			cover -> pixels[o/3].byte3 = (cover -> pixels[o/3].byte3) & 254; 
-			cover -> pixels[o/3].byte3 = (cover -> pixels[o/3].byte3) | b;
+			cover -> pixels[o/3].byte1 = (cover -> pixels[o/3].byte1) & 254; 
+			cover -> pixels[o/3].byte1 = (cover -> pixels[o/3].byte1) | b;
 		}
-		
 	}
 	
 	saveImage(cover , filename);
@@ -46,7 +47,7 @@ int getBit(char *m, int n){
 		j = 7 - (n%8);
 		
 		//find the mask we want in order to get the bit we want
-		mask << j; //shift logical left the mask by j
+		mask = mask << j; //shift logical left the mask by j
 		
 		//save to the tempByte the m[i] AND mask
 		tempByte = (m[i] & mask);
