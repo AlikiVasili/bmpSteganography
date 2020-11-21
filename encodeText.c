@@ -106,7 +106,7 @@ int * createPermutationFunction(int N, unsigned int systemkey){
 int main(){
 	//printf("%d\n", getBit("Hello World my name is alice" , 10));
 	//createPermutationFunction(5,15);
-	IMAGE *img = initImage("Untitled.bmp");
-	encodeText(img , "Hello", "newUntitled.bmp");
+	IMAGE *img = initImage("tux-bonaparte.bmp");
+	encodeText(img , "Hello", "new-tux-bonaparte.bmp");
 }
 #endif

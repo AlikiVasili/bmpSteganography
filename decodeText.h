@@ -6,3 +6,12 @@
  */
 #ifndef DECODETEXT_H
 #define DECODETEXT_H
+
+#include "encodeText.h"
+
+void decodeText(IMAGE *image , int msgLength, char *filename);
+
+char getChar(byte tempByte , int msgLength, int n, char t);
+
+
+#endif
