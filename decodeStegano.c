@@ -30,6 +30,7 @@ void decodeStegano(const IMAGE *cover, unsigned short int numOfBits, char* newFi
         secret->pixels[i].byte3 = temp;
     }
     saveImage(secret,newFileName);
+    deleteImage(secret);
 }
 
 #ifdef DEBUG3

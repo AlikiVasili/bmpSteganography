@@ -44,6 +44,7 @@ void encodeStegano(const IMAGE *coverImage, const IMAGE *secret, unsigned short 
         cover->pixels[i].byte3 = cover->pixels[i].byte3 | temp;
     }
     saveImage(cover, newFileName);
+    deleteImage(cover);
 
 }
 
