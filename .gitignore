@@ -33,3 +33,6 @@ encodeText.o
 grayscale.o
 image.o
 listImg.o
+grayscale-image2.bmp
+grayscale-4x3.bmp
+new-poem.txt
