@@ -1,5 +1,5 @@
 #include "decodeStegano.h"
-void decodeStegano(const IMAGE *cover, unsigned short int numOfBits, char* newFileName){
+void decodeStegano(const IMAGE *cover, unsigned short int numOfBits, const char* newFileName){
     IMAGE *secret = copyImage(cover);
     if(cover==NULL)
         return;

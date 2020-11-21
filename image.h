@@ -9,11 +9,17 @@ typedef unsigned char byte;
 typedef unsigned short int word;
 typedef unsigned int dword;
 
+/**
+ * @brief This struct represents a pixel in a bmp image
+ * with 24-bit color depth.
+ * 
+ */
 typedef struct pixel{
 	byte byte1;
 	byte byte2;
 	byte byte3;
 }PIXEL;
+
 
 typedef struct BMPINFOHEADER{
 	dword biSize;
@@ -53,50 +59,50 @@ typedef struct image{
  * @brief This function opens a given file and
  * save it in an IMAGE struct if it's a bmp image.
  * 
- * @param fileName The name of the file to be opened.
+ * @param char_*_fileName The name of the file to be opened.
  * @return IMAGE* The pointer to that IMAGE struct.
  */
-IMAGE *initImage(char *fileName);
+IMAGE *initImage(const char *fileName);
 /**
  * @brief This function deletes an IMAGE struct from memory.
  * 
- * @param img The IMAGE to be deleted.
+ * @param IMAGE_*_img The IMAGE to be deleted.
  */
 void deleteImage(IMAGE *img);
 /**
  * @brief This function checks if a given IMAGE is a bmp file or not.
  * 
- * @param img THE IMAGE to be cjecked.
+ * @param IMAGE_*_img THE IMAGE to be cjecked.
  * @return int 1 if the IMAGE is a bmp file 0 if otherwise.
  */
-int isBmp(IMAGE *img);
+static int isBmp(const IMAGE *img);
 /**
  * @brief This function checks if a given IMAGE is a bmp file
  * with no compression and 24-bit color depth.
  * 
- * @param img The IMAGE to be checked.
+ * @param IMAGE_*_img The IMAGE to be checked.
  * @return int 1 if there is no compression and 
  * the color depth is 24-bits, 0 if otherwise.
  */
-int isUncompressed24bit(IMAGE *img);
+static int isUncompressed24bit(const IMAGE *img);
 /**
  * @brief This function creates a copy of a given IMAGE.
  * 
- * @param src The IMAGE to be copied.
+ * @param const_IMAGE_*_src The IMAGE to be copied.
  * @return IMAGE* The copy of the given IMAGE or NULL in case of failure.
  */
 IMAGE *copyImage(const IMAGE *src);
 /**
  * @brief This function saves an IMAGE in a file with a given filename.
  * 
- * @param src The IMAGE to be saved.
- * @param imageName The filename.
+ * @param const_IMAGE_*_src The IMAGE to be saved.
+ * @param const_char_*_imageName The filename.
  */
-void saveImage(const IMAGE *src, char *imageName);
+void saveImage(const IMAGE *src, const char *imageName);
 /**
  * @brief This function retruns the amount of pixels in the IMAGE struct.
  * 
- * @param src The IMAGE whose pixel amount to get.
+ * @param const_IMAGE_*_src The IMAGE whose pixel amount to get.
  * @return int The amount of pixels including padding pixels.
  */
 int getPixelAmount(const IMAGE *src);

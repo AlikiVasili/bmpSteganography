@@ -12,6 +12,6 @@
  * @param IMAGE_*_cover The cover photo in which the secret photo will be steganographied.
  * @param IMAGE_*_secret The photo to be steganographied.
  * @param unsigned_short_int_bitNum The amount of bits of the secret image to copy to the cover photo.
- * @param char_*_newFileName The name of the new image file.
+ * @param const_char_*_newFileName The name of the new image file.
  */
-void encodeStegano(const IMAGE *cover, const IMAGE *secret, unsigned short int bitNum, char *newFileName );
+void encodeStegano(const IMAGE *cover, const IMAGE *secret, unsigned short int bitNum, const char *newFileName);

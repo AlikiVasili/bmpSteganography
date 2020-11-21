@@ -6,10 +6,11 @@ void deleteImage(IMAGE *img){
 	free(img->header->bmpFileHeader);
 	free(img->header->bmpInfoHeader);
 	free(img->header);
-	free(img->pixels);
+	if(img->pixels!=NULL)
+		free(img->pixels);
 	free(img);
 }
-int isBmp(IMAGE *img){
+static int isBmp(const IMAGE *img){
 	if(img==NULL)
 		return 0;
 	if(img->header==NULL)
@@ -20,7 +21,7 @@ int isBmp(IMAGE *img){
 		return 1;
 	return 0;
 }
-int isUncompressed24bit(IMAGE *img){
+static int isUncompressed24bit(const IMAGE *img){
 	if(!isBmp(img))
 		return 0;
 	if(img->header->bmpInfoHeader->biBitCount == 24 && img->header->bmpInfoHeader->biCompression == 0)
@@ -72,7 +73,7 @@ int getPixelAmount(const IMAGE *src){
 	return src->padding_pixels + src->header->bmpInfoHeader->biHeight * src->header->bmpInfoHeader->biWidth;
 }
 
-IMAGE * initImage(char *fileName){
+IMAGE * initImage(const char *fileName){
 	FILE *file=NULL;
 	IMAGE *image = NULL;
 	//Allocate space for all pointers.
@@ -110,8 +111,10 @@ IMAGE * initImage(char *fileName){
 	fread(&(image -> header -> bmpInfoHeader->biClrUsed),sizeof(dword), 1, file);
 	fread(&(image -> header -> bmpInfoHeader->biClrImportant),sizeof(dword), 1, file); 
 
-	if(!isUncompressed24bit(image))
+	if(!isUncompressed24bit(image)){
+		deleteImage(image);
 		return NULL;
+	}
 	
 	//see if there are padding pixels and calcuate how many.
 	int padding_pixels = 0;
@@ -141,7 +144,7 @@ IMAGE * initImage(char *fileName){
 	return image;
 }
 
-void saveImage(const IMAGE *src, char *imageName){
+void saveImage(const IMAGE *src, const char *imageName){
 	FILE *output = fopen(imageName,"wb"); //Create a new file with the given name.
 
 	//Save the file header info in the file (If we copy directly the padding gets copied as well).
@@ -152,7 +155,6 @@ void saveImage(const IMAGE *src, char *imageName){
 	fwrite(&(src -> header -> bmpFileHeader ->bfReserved2),sizeof(word), 1, output);
 	fwrite(&(src -> header -> bmpFileHeader ->bfOffBits),sizeof(dword), 1, output);
 
-	//fwrite(src->header->bmpInfoHeader,sizeof(BMPINFOHEADER),1,output);
 	fwrite(&(src -> header -> bmpInfoHeader->biSize),sizeof(dword), 1, output);
 	fwrite(&(src -> header -> bmpInfoHeader->biWidth),sizeof(dword), 1, output);
 	fwrite(&(src -> header -> bmpInfoHeader->biHeight),sizeof(dword), 1, output);
