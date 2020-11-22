@@ -64,8 +64,7 @@ char getChar(byte tempByte , int msgLength, int n, char t){
 #ifdef DEBUG4
 int main(){
 	IMAGE *img = initImage("new-tux-bonaparte.bmp");
-	
-	int msgLength = 5;
+	int msgLength = 280;
 	decodeText(img,msgLength,"new-poem.txt");
 }
 #endif

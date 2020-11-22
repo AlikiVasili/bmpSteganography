@@ -16,7 +16,7 @@ void encodeText(IMAGE *image, char *filename,char *newFile){
 	
 	char *m = (char *)malloc(sizeof(char));
 	int size = 0;
-	while( fscanf(f,"%c",&m[0]) != EOF){
+	while( fscanf(f,"%c",&m[size]) != EOF){
 		size++;
 		m = (char *)realloc(m,sizeof(char) * (size+1));
 	}

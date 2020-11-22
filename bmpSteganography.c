@@ -101,10 +101,21 @@ int main(int argc, char *argv[]){
         deleteImage(cover);
         return 0;
     }
-    if(strcmp(argv[1],"-encodeText")==0){
+	if(strcmp(argv[1],"-encodeText")==0){
+		IMAGE *image = initImage(argv[2]);
+		char *filename = malloc(sizeof(char)*(strlen(argv[2])));
+        strcpy(filename,"new-");
+		encodeText(image,argv[3],strcat(filename,argv[2]));
+		free(filename);
+		deleteImage(image);
         return 0;
     }
-
+	if(strcmp(argv[1],"-decodeText")==0){
+		IMAGE *image = initImage(argv[2]);
+		int length = atoi(argv[3]);
+		decodeText(image, length, argv[4]);
+		return 0;
+	}
 
 
 
