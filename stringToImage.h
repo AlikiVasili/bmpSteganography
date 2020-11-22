@@ -4,7 +4,8 @@
 
 #include "image.h"
 
-int * saveText(char *filename,int *text);
+static byte * saveText(char *filename,byte *text,int *size);
+void stringToImage(const char *cover,byte *binaryText,int size);
 
 
 
