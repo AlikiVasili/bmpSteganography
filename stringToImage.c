@@ -6,6 +6,7 @@ int * saveText(char *filename, int * text ){
 	//open the file
 	if((file = fopen(filename,"r"))== NULL){
 		printf("File %s cannot be open!\n)", filename);
+		return;
 	}
 	
 	char *temp;
