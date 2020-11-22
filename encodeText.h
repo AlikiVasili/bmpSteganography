@@ -34,10 +34,11 @@ int * createPermutationFunction(int N, unsigned int systemkey);
  *	@brief This function encode a text to an image.
  *
  *	@param image The image where the text will be encode.
- *	@param text The text we want to hide in the image.
+ *	@param filename The name of the file with the text we want to hide in the image.
+ *	@param newFile the name of the file we want to create
  *
  *	@return Void.
  */
-void encodeText(IMAGE *image, char *text,char *filename);
+void encodeText(IMAGE *image,char *filename,char *newFile);
 
 #endif

@@ -1,13 +1,27 @@
 #include "encodeText.h"
 
-void encodeText(IMAGE *image, char *m,char *filename){
+void encodeText(IMAGE *image, char *filename,char *newFile){
 	int i = 0;
 	int b = 0, o = 0;
-	int msgBitLength = ( 1 + strlen(m) )* 8;
 	//systemkey = 100
 	int *permutation = createPermutationFunction(getPixelAmount(image), 100);
 	//create the cover image
 	IMAGE *cover = copyImage(image);
+	
+	FILE *f = NULL;
+	if((f=fopen(filename,"r")) == NULL){
+		printf("File %s cannot be open!\n)", filename);
+		return;
+	}
+	
+	char *m = (char *)malloc(sizeof(char));
+	int size = 0;
+	while( fscanf(f,"%c",&m[0]) != EOF){
+		size++;
+		m = (char *)realloc(m,sizeof(char) * (size+1));
+	}
+	
+	int msgBitLength = ( 1 + strlen(m) )* 8;
 	
 	for(i = 0; i < msgBitLength; i++){
 		//find b
@@ -32,7 +46,7 @@ void encodeText(IMAGE *image, char *m,char *filename){
 		}
 	}
 	
-	saveImage(cover , filename);
+	saveImage(cover , newFile);
 	
 }
 
@@ -107,6 +121,6 @@ int main(){
 	//printf("%d\n", getBit("Hello World my name is alice" , 10));
 	//createPermutationFunction(5,15);
 	IMAGE *img = initImage("tux-bonaparte.bmp");
-	encodeText(img , "Hello", "new-tux-bonaparte.bmp");
+	encodeText(img,"poem.txt","new-tux-bonaparte.bmp");
 }
 #endif
