@@ -48,6 +48,6 @@ int * saveText(char *filename, int * text ){
 
 #ifdef DEBUG5
 int main(void){
-	int *text = saveText("input.txt",text);
+	//int *text = saveText("input.txt",text);
 }
 #endif
