@@ -51,7 +51,7 @@ void encodeText(IMAGE *image, char *filename,char *newFile){
 }
 
 int getBit(char *m, int n){
-	int u = 0, i = 0, j = 0;
+	int i = 0, j = 0;
 	
 	byte mask = 1; //create a default mask
 	byte tempByte = 0;
