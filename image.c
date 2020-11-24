@@ -4,6 +4,22 @@
 * License, see the file COPYING.
 */
 #include "image.h"
+/**
+ * @brief This function checks if a given IMAGE is a bmp file
+ * with no compression and 24-bit color depth.
+ * 
+ * @param IMAGE_*_img The IMAGE to be checked.
+ * @return int 1 if there is no compression and 
+ * the color depth is 24-bits, 0 if otherwise.
+ */
+static int isUncompressed24bit(const IMAGE *img);
+/**
+ * @brief This function checks if a given IMAGE is a bmp file or not.
+ * 
+ * @param IMAGE_*_img THE IMAGE to be cjecked.
+ * @return int 1 if the IMAGE is a bmp file 0 if otherwise.
+ */
+static int isBmp(const IMAGE *img);
 
 void deleteImage(IMAGE *img){
 	//if image is null return

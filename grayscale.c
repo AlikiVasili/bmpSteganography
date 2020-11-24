@@ -4,7 +4,19 @@
 * License, see the file COPYING.
 */
 #include "grayscale.h"
+/**
+ * @brief This function rounds the given number.
+ * 
+ * @param double_x The number we want to round.
+ */
 static int my_round(double x);
+/**
+ * @brief This function calculate the luminance of a pixel.
+ * 
+ * @param byte_red The first(red) byte of the pixel.
+ * @param byte_greem The second(green) byte of the pixel.
+ * @param byte_blue The third(blue) byte of the pixel.
+ */
 static int calculate_luminance(byte red,byte green,byte blue);
 
 void grayscale_filter(IMAGE *image, char *file){

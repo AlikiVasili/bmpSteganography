@@ -1,5 +1,15 @@
 #include "stringToImage.h"
 
+/**
+ * @brief This function transforms the contents of a given txt file to
+ * their binary representation.
+ * 
+ * @param const_char_*_filename The txt file to be opened. 
+ * @param int_*_textSize A pointer to an integer where the size of the resulting binary table will be saved.
+ * @return byte* The resulting binary representation as a table of bytes. 
+ */
+static byte * saveText(const char *filename, int *textSize);
+
 static byte * saveText(const char *filename, int *textSize){
 	FILE *file = NULL;
 	byte *text;

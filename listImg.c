@@ -32,6 +32,7 @@ int main(void){
     FILE *f = NULL;
 	IMAGE *img = initImage(f,"4x3.bmp");
     list(img);
+    deleteImage(img);
     return 0;
 }
 #endif
