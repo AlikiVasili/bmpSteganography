@@ -93,7 +93,7 @@ static int getBit(char *m, int n){
 	}
 }
 
-static int * createPermutationFunction(int N, unsigned int systemkey){
+int * createPermutationFunction(int N, unsigned int systemkey){
 	//create a table
 	int *table = NULL;
 	//reseve space in memory for the table

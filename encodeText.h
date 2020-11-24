@@ -14,7 +14,7 @@
  *	@brief This function calculade the u(n) bit of the given text.
  *
  *	@param char_*_m The text.
- *	@param int_n the number of the bit we want to find.
+ *	@param int_n A number we want to know can bit we want.
  *
  *	@return the u(n) bit.
  */
@@ -28,7 +28,7 @@ static int getBit(char *m, int n);
  *
  *	@return the table that we create.
  */
-static int * createPermutationFunction(int N, unsigned int systemkey);
+int * createPermutationFunction(int N, unsigned int systemkey);
 
 /**
  *	@brief This function encode a text to an image.
