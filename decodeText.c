@@ -1,3 +1,8 @@
+/* 
+* This is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License, see the file COPYING.
+*/
 #include "decodeText.h"
 
 void decodeText(IMAGE *image , int msgLength, char *filename){
@@ -17,16 +22,19 @@ void decodeText(IMAGE *image , int msgLength, char *filename){
 	byte mask = 1;
 	
 	char *text = NULL;
+	//create a text table to save the message inside
 	text = (char *)malloc(sizeof(char)*msgLength);
+	//make all the places of the text table 0
 	for(t=0;t<msgLength;t++){
 		text[t] = 0;
 	}
 	
+	//make (1+msgLength)*8 the followings
 	for(i = 0 ; i < msgBitLength; i++){
-		//o is the permutation of i
+		//find o - o is the permutation of i
 		o = permutation[i];
 		
-		//get from the o pixel of the image's pixels table we want the lsb so and it with the mask
+		//get from the o-byte of the image's pixels table the lsb, and it with the mask
 		//and save it to tempByte
 		PIXEL pixel = image -> pixels[o/3];
 		int pByte = (o%3); 
@@ -41,30 +49,38 @@ void decodeText(IMAGE *image , int msgLength, char *filename){
 			tempByte =(pixel.byte1) & mask ;
 		}
 		
-		
+		//add to the character at the i/8 place in the text table the bit we just find
 		text[i/8] = getChar(tempByte,msgLength ,i, text[i/8] );
 	}
 	
+	//print the message in the file
 	fprintf(file,"%s\n" , text);
+	free(text);
 }
 
-char getChar(byte tempByte , int msgLength, int n, char t){
+static char getChar(byte tempByte , int msgLength, int n, char t){
 	int j = 0;
 
 	//if n is between 0 and 8*strlen(m)
 	if(n >= 0 && n <= msgLength*8){
+		//calculate j
 		j = 7 - (n%8);
 		tempByte = tempByte << j; //shift logical left the byte by j
-		return (tempByte | t);
+		return (tempByte | t);	//add to the character the tempByte and return it
 	}
 	return 0;
 }
 
 
 #ifdef DEBUG4
+#include <assert.h>
 int main(){
 	IMAGE *img = initImage("new-tux-bonaparte.bmp");
 	int msgLength = 280;
-	decodeText(img,msgLength,"new-poem.txt");
+	decodeText(img,msgLength,"testing.txt");
+	FILE *f;
+	assert((f=fopen("testing.bmp","rb"))!=NULL);	//Try and open the file that must be created
+	fclose(f);
+	deleteImage(img);
 }
 #endif
