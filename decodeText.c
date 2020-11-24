@@ -4,6 +4,7 @@
 * License, see the file COPYING.
 */
 #include "decodeText.h"
+static char editChar(byte tempByte , int msgLength, int n, char t);
 
 void decodeText(IMAGE *image , int msgLength, char *filename){
 	int msgBitLength = ( 1 + msgLength) * 8;

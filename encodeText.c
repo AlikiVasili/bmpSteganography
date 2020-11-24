@@ -4,6 +4,8 @@
 * License, see the file COPYING.
 */
 #include "encodeText.h"
+static int getBit(char *m, int n);
+int * createPermutationFunction(int N, unsigned int systemkey);
 
 void encodeText(IMAGE *image, char *filename,char *newFile){
 	int i = 0;

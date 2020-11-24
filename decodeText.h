@@ -29,7 +29,7 @@ void decodeText(IMAGE *image , int msgLength, char *filename);
  *
  *	@return The character we change.
  */
-static char editChar(byte tempByte , int msgLength, int n, char t);
+//static char editChar(byte tempByte , int msgLength, int n, char t);
 
 
 #endif

@@ -4,6 +4,8 @@
 * License, see the file COPYING.
 */
 #include "grayscale.h"
+static int my_round(double x);
+static int calculate_luminance(byte red,byte green,byte blue);
 
 void grayscale_filter(IMAGE *image, char *file){
 	//if image is null then return

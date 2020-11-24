@@ -34,8 +34,17 @@ void decodeStegano(const IMAGE *cover, unsigned short int numOfBits, const char*
 }
 
 #ifdef DEBUG3
+#include <assert.h>
 int main(void){
     IMAGE *test = initImage("testing.bmp");
     decodeStegano(test,4,"testingDecode.bmp");
+    IMAGE *decoded = initImage("testingDecode.bmp");
+    byte encryptedLsd = test->pixels[0].byte1 & 15;
+    byte decryptedMsd = decoded->pixels[0].byte1 & 240;
+    encryptedLsd = encryptedLsd << 4;
+    assert(decryptedMsd==encryptedLsd);
+    deleteImage(test);
+    deleteImage(decoded);
+    return 0;
 }
 #endif

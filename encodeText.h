@@ -18,7 +18,7 @@
  *
  *	@return the u(n) bit.
  */
-static int getBit(char *m, int n);
+//static int getBit(char *m, int n);
 
 /**
  *	@brief This function create a permutation.

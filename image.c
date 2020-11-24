@@ -103,18 +103,17 @@ IMAGE * initImage(const char *fileName){
 	image->header = (HEADER *)malloc(sizeof(HEADER));
 	image -> header -> bmpFileHeader =(BMPFILEHEADER *) malloc(sizeof(BMPFILEHEADER));
 	image -> header -> bmpInfoHeader =(BMPINFOHEADER *) malloc(sizeof(BMPINFOHEADER));
+	image -> pixels = NULL;
 	
 	if(image == NULL){
 		printf("Reseve space in memory can't be done");
 		deleteImage(image);
-		fclose(file);
 		return NULL;
 	}
 	
 	if( (file=fopen(fileName,"rb") )== NULL){
 		printf("File %s cannot be opened!\n", fileName);
 		deleteImage(image);
-		fclose(file);
 		return NULL;
 	}
 	//Read each individual information (it appears that the struct padding can mess with reading if we read all bytes directly)

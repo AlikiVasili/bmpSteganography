@@ -36,3 +36,7 @@ listImg.o
 grayscale-image2.bmp
 grayscale-4x3.bmp
 new-poem.txt
+grayscale-image3.bmp
+gmon.out
+results.txt
+bmpTest

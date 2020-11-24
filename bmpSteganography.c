@@ -14,7 +14,7 @@
 #include "grayscale.h"
 #include "listImg.h"
 #include "stringToImage.h"
-#include "imageToString.h"
+//#include "imageToString.h"
 
 static void listOptions(){
     printf("Available functions:\n");
@@ -124,9 +124,9 @@ int main(int argc, char *argv[]){
 		strcat(newFile,argv[2]);
 		stringToImage(argv[2],argv[3],newFile);
 	}
-	if(strcmp(argv[1],"-imageToString")==0){
+	/*if(strcmp(argv[1],"-imageToString")==0){
 		IMAGE *image = initImage(argv[2]);
 		imageToString(image);
-	}
+	}*/
     return 0;
 }

@@ -49,9 +49,21 @@ void encodeStegano(const IMAGE *coverImage, const IMAGE *secret, unsigned short 
 }
 
 #ifdef DEBUG2
+#include <assert.h>
 int main(void){
-    IMAGE *img1 = initImage("IMG_6865.bmp");
-    IMAGE *img2 = initImage("IMG_6875.bmp");
-    encodeStegano(img1,img2,4,"testing.bmp");
+    IMAGE *cover = initImage("IMG_6865.bmp");
+    IMAGE *secret = initImage("IMG_6875.bmp");
+    encodeStegano(cover,secret,4,"testing.bmp");
+    IMAGE *newImg = initImage("testing.bmp");
+    assert(newImg!=NULL); //Check if the new image exists.
+    byte secretMsd = secret->pixels[0].byte1 & 240;
+    secretMsd=secretMsd>>4;
+    byte newImgLsd = newImg->pixels[0].byte1 & 15;
+    assert(secretMsd==newImgLsd);//Check if the 4 msb of the secret mage are equal to the last 
+    deleteImage(cover);
+    deleteImage(secret);
+    deleteImage(newImg);
+    return 0;
+
 }
 #endif
