@@ -50,7 +50,7 @@ void decodeText(IMAGE *image , int msgLength, char *filename){
 		}
 		
 		//add to the character at the i/8 place in the text table the bit we just find
-		text[i/8] = getChar(tempByte,msgLength ,i, text[i/8] );
+		text[i/8] = editChar(tempByte,msgLength ,i, text[i/8] );
 	}
 	
 	//print the message in the file
@@ -58,7 +58,7 @@ void decodeText(IMAGE *image , int msgLength, char *filename){
 	free(text);
 }
 
-static char getChar(byte tempByte , int msgLength, int n, char t){
+static char editChar(byte tempByte , int msgLength, int n, char t){
 	int j = 0;
 
 	//if n is between 0 and 8*strlen(m)
