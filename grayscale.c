@@ -1,3 +1,8 @@
+/* 
+* This is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License, see the file COPYING.
+*/
 #include "grayscale.h"
 
 void grayscale_filter(IMAGE *image, char *file){
@@ -20,16 +25,17 @@ void grayscale_filter(IMAGE *image, char *file){
 	}
 	//save the copy image
 	saveImage(cover,file);
+	deleteImage(cover);
 }
 
-int my_round(double x){
+static int my_round(double x){
 	if (x < 0.0)
 		return (int)(x - 0.5);
     else
         return (int)(x + 0.5);
 }
 
-int calculate_luminance(byte red,byte green,byte blue){
+static int calculate_luminance(byte red,byte green,byte blue){
 	int luminance  = 0;
 	double ntsc = 0;
 	//calculate the National Television System Committe (NTSC)
@@ -41,8 +47,16 @@ int calculate_luminance(byte red,byte green,byte blue){
 }
 
 #ifdef DEBUG2
+#include <assert.h>
 int main(){
-	IMAGE *img = initImage("image1.bmp");
-	grayscale_filter(img,"image1_grayscale.bmp");
+	IMAGE *img = initImage("image1.bmp"); 	//read the image1
+	grayscale_filter(img,"testing.bmp"); 	//make it to its graysclae version
+	FILE *f;
+	assert((f=fopen("testing.bmp","rb"))!=NULL);	//Try and open the file that must be created
+	fclose(f);
+	deleteImage(img);
+	
+	assert(my_round(1.258) == 1);	//check the function my_round
+	assert(calculate_luminance(9,90,160) == 74);	//check the function calculate_luminance
 }
 #endif
