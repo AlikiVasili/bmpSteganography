@@ -96,8 +96,8 @@ IMAGE *copyImage(const IMAGE *src){
 
 	//Copy pixels
 	cpy->pixels = (PIXEL *)malloc(sizeof(PIXEL)*getPixelAmount(src));
-	int i=0;
-	for(i=0;i<getPixelAmount(src);i++){
+	int i=0,pixelAmount=getPixelAmount(src);
+	for(i=0;i<pixelAmount;i++){
 		cpy->pixels[i].byte1 = src->pixels[i].byte1;
 		cpy->pixels[i].byte2 = src->pixels[i].byte2;
 		cpy->pixels[i].byte3 = src->pixels[i].byte3;

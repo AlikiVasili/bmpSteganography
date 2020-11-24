@@ -27,7 +27,8 @@ void encodeStegano(const IMAGE *coverImage, const IMAGE *secret, unsigned short 
     byte temp;
     byte removeLowBits = 255 - getHighBits;    //This mask will set the bitNum lsb to 0
     removeLowBits <<= bitNum;
-    for(i=0;i<getPixelAmount(cover);i++){
+    int pixelAmount =getPixelAmount(cover);
+    for(i=0;i<pixelAmount;i++){
         temp = secret->pixels[i].byte1 & getHighBits;//Fetch the bitNum msb from the secret image.
         temp = temp >> shiftRightAmount;            //Shift them right by 8-bitNum so that they become bitNum lsb
         cover->pixels[i].byte1 = cover->pixels[i].byte1 & removeLowBits; //Set the bitNum lsb of the cover to 0

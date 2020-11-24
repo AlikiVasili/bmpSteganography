@@ -15,7 +15,8 @@ void decodeStegano(const IMAGE *cover, unsigned short int numOfBits, const char*
         getLowBits+=1;
     }
     byte temp;
-    for(i=0;i<getPixelAmount(cover);i++){
+    int pixelAmount =getPixelAmount(cover); //Set the limit for i to prevent calling getPixelAmount for each cycle.
+    for(i=0;i<pixelAmount;i++){
         //Fetch each byte shift it left and save it in the secret image.
         temp = cover->pixels[i].byte1 & getLowBits;
         temp = temp << shiftLeftAmount;
