@@ -13,29 +13,29 @@
 /**
  *	@brief This function calculade the u(n) bit of the given text.
  *
- *	@param m The text.
- *	@param n the number of the bit we want to find.
+ *	@param char_*_m The text.
+ *	@param int_n the number of the bit we want to find.
  *
  *	@return the u(n) bit.
  */
-int getBit(char *m, int n);
+static int getBit(char *m, int n);
 
 /**
  *	@brief This function create a permutation.
  *
- *	@param N An integer number which shows the size of the table we want to create.
- *	@param systemkey An unsigned integer in which the permutation is based.
+ *	@param int_N An integer number which shows the size of the table we want to create.
+ *	@param unsigned_int_systemkey An unsigned integer in which the permutation is based.
  *
  *	@return the table that we create.
  */
-int * createPermutationFunction(int N, unsigned int systemkey);
+static int * createPermutationFunction(int N, unsigned int systemkey);
 
 /**
  *	@brief This function encode a text to an image.
  *
- *	@param image The image where the text will be encode.
- *	@param filename The name of the file with the text we want to hide in the image.
- *	@param newFile the name of the file we want to create
+ *	@param IMAGE_*_image The image where the text will be encode.
+ *	@param char_*_filename The name of the file with the text we want to hide in the image.
+ *	@param char_*_newFile the name of the file we want to create
  *
  *	@return Void.
  */

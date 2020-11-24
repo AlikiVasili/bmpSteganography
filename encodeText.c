@@ -1,3 +1,8 @@
+/* 
+* This is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License, see the file COPYING.
+*/
 #include "encodeText.h"
 
 void encodeText(IMAGE *image, char *filename,char *newFile){
@@ -8,6 +13,7 @@ void encodeText(IMAGE *image, char *filename,char *newFile){
 	//create the cover image
 	IMAGE *cover = copyImage(image);
 	
+	//if the file can not be open return
 	FILE *f = NULL;
 	if((f=fopen(filename,"r")) == NULL){
 		printf("File %s cannot be open!\n)", filename);
@@ -16,6 +22,7 @@ void encodeText(IMAGE *image, char *filename,char *newFile){
 	
 	char *m = (char *)malloc(sizeof(char));
 	int size = 0;
+	//read all the text from the given file and save it to m
 	while( fscanf(f,"%c",&m[size]) != EOF){
 		size++;
 		m = (char *)realloc(m,sizeof(char) * (size+1));
@@ -23,13 +30,14 @@ void encodeText(IMAGE *image, char *filename,char *newFile){
 	
 	int msgBitLength = ( 1 + strlen(m) )* 8;
 	
+	//do (1+strlen(m))*8 time the followings
 	for(i = 0; i < msgBitLength; i++){
 		//find b
 		b = getBit(m , i);
 		//find o
 		o = permutation[i];
 		
-		//delete the lsb of the o byte of the table of the pixels
+		//delete the lsb of the o-byte of the table of the pixels
 		//then make it equal to b
 		int pByte = (o%3); 
 		if(pByte == 0){
@@ -46,11 +54,15 @@ void encodeText(IMAGE *image, char *filename,char *newFile){
 		}
 	}
 	
+	//save the image we just create
 	saveImage(cover , newFile);
+	deleteImage(cover);
+	free(m);
+	free(permutation);
 	
 }
 
-int getBit(char *m, int n){
+static int getBit(char *m, int n){
 	int i = 0, j = 0;
 	
 	byte mask = 1; //create a default mask
@@ -81,9 +93,10 @@ int getBit(char *m, int n){
 	}
 }
 
-int * createPermutationFunction(int N, unsigned int systemkey){
-	//create the table
+static int * createPermutationFunction(int N, unsigned int systemkey){
+	//create a table
 	int *table = NULL;
+	//reseve space in memory for the table
 	table = (int *)malloc(sizeof(int) * N);
 	if(table == NULL){
 		printf("reseve space in memory can't be done\n");
@@ -97,6 +110,7 @@ int * createPermutationFunction(int N, unsigned int systemkey){
 		table[k] = k;
 	}
 	
+	//seed the random number generator used by the function rand
 	srand(systemkey);
 	int temp = 0 ;
 	
@@ -113,14 +127,21 @@ int * createPermutationFunction(int N, unsigned int systemkey){
 		table[i] = table[j];
 		table[j] = temp;
 	}
+	
 	return table;
 }
 
 #ifdef DEBUG3
+#include <assert.h>
 int main(){
-	//printf("%d\n", getBit("Hello World my name is alice" , 10));
-	//createPermutationFunction(5,15);
 	IMAGE *img = initImage("tux-bonaparte.bmp");
-	encodeText(img,"poem.txt","new-tux-bonaparte.bmp");
+	encodeText(img,"poem.txt","testing.bmp"); //encode the poem.txt in the image tux-bonaparte.bmp
+	FILE *f;
+	assert((f=fopen("testing.bmp","rb"))!=NULL);	//Try and open the file that must be created
+	fclose(f);
+	deleteImage(img);
+	
+	assert(getBit("hello",1) == 1); //check the getBit function
+	assert(createPermutationFunction(5,100) != NULL);	//check createPermutationFunction
 }
 #endif
