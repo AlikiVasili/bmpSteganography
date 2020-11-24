@@ -1,30 +1,51 @@
+/* 
+* This is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License, see the file COPYING.
+*/
 #include "image.h"
 
 void deleteImage(IMAGE *img){
+	//if image is null return
 	if(img==NULL)
 		return;
+	//delete the header of the image
 	free(img->header->bmpFileHeader);
+	img->header->bmpFileHeader=NULL;
 	free(img->header->bmpInfoHeader);
+	img->header->bmpInfoHeader=NULL;
 	free(img->header);
+	img->header=NULL;
+	//delete the pixels of the image
 	if(img->pixels!=NULL)
 		free(img->pixels);
+	img->pixels=NULL;
+	//delete the img pointer
 	free(img);
 }
 static int isBmp(const IMAGE *img){
+	//if the image is null return 0
 	if(img==NULL)
 		return 0;
+	//if the header is null return 0
 	if(img->header==NULL)
 		return 0;
+	//if the bmpFileHeader is null return 0
 	if(img->header->bmpFileHeader==NULL)
 		return 0;
+	//if the bfType1 = 'B' and bfType2 = 'M' then the image is bitmap image so return 1
 	if(img->header->bmpFileHeader->bfType1 == 'B' && img->header->bmpFileHeader->bfType2 == 'M')
 		return 1;
+	//else return 0
 	return 0;
 }
 static int isUncompressed24bit(const IMAGE *img){
+	//if the image is not bitmap image return 0
 	if(!isBmp(img))
 		return 0;
+	//then check if its uncompressed
 	if(img->header->bmpInfoHeader->biBitCount == 24 && img->header->bmpInfoHeader->biCompression == 0)
+		//if yes then return 1
 		return 1;
 	return 0;
 }
@@ -65,6 +86,7 @@ IMAGE *copyImage(const IMAGE *src){
 		cpy->pixels[i].byte2 = src->pixels[i].byte2;
 		cpy->pixels[i].byte3 = src->pixels[i].byte3;
 	}
+	//save the padding pixels of the image
 	cpy->padding_pixels = src->padding_pixels;
 	return cpy;
 }
@@ -84,11 +106,15 @@ IMAGE * initImage(const char *fileName){
 	
 	if(image == NULL){
 		printf("Reseve space in memory can't be done");
+		deleteImage(image);
+		fclose(file);
 		return NULL;
 	}
 	
 	if( (file=fopen(fileName,"rb") )== NULL){
 		printf("File %s cannot be opened!\n", fileName);
+		deleteImage(image);
+		fclose(file);
 		return NULL;
 	}
 	//Read each individual information (it appears that the struct padding can mess with reading if we read all bytes directly)
@@ -113,6 +139,7 @@ IMAGE * initImage(const char *fileName){
 
 	if(!isUncompressed24bit(image)){
 		deleteImage(image);
+		fclose(file);
 		return NULL;
 	}
 	
@@ -140,7 +167,7 @@ IMAGE * initImage(const char *fileName){
 		fread(&(image -> pixels[i].byte2), sizeof(byte), 1 , file);
 		fread(&(image -> pixels[i].byte3), sizeof(byte), 1 , file);
 	}
-	
+	fclose(file);
 	return image;
 }
 
@@ -179,9 +206,26 @@ void saveImage(const IMAGE *src, const char *imageName){
 }
 
 #ifdef DEBUG
+#include <assert.h>
 int main(){
-	IMAGE *img = initImage("image3.bmp");
-	printf("%c\n", img -> pixels[0].byte2);
-	saveImage(img,"testing.bmp");
+	IMAGE *img = initImage("image3.bmp"); //Open an image
+	assert(img != NULL); //should get a valid pointer.
+	saveImage(img,"testing.bmp");//Save the image as a file
+	FILE *f;
+	assert((f=fopen("testing.bmp","rb"))!=NULL);	//Try and open the file
+	fclose(f);
+	IMAGE *copy = copyImage(img); //Create a copy
+	assert(copy->pixels[0].byte1==img->pixels[0].byte1); //Check if the first pixel is the same
+	deleteImage(copy);	//Delete the copy
+	copy=NULL;
+	assert(isBmp(img)); //The image is an uncompressed 224bit color depth bmp image so these should be true.
+	assert(isUncompressed24bit(img));
+	img->header->bmpInfoHeader->biBitCount=68;	//Change th bit depth 
+	assert(isBmp(img)); 		//The image remains a bmp file.
+	assert(!isUncompressed24bit(img));	//Compression should be incorrect
+	deleteImage(img);			
+	img=NULL;
+	
+	return 0;
 }
 #endif

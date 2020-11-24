@@ -13,6 +13,8 @@
 #include "encodeText.h"
 #include "grayscale.h"
 #include "listImg.h"
+#include "stringToImage.h"
+#include "imageToString.h"
 
 static void listOptions(){
     printf("Available functions:\n");
@@ -23,7 +25,7 @@ static void listOptions(){
     printf("–encodeText coverImage.bmp inputText.txt\n");
     printf("–decodeText encryptedImage.bmp msgLength output.txt\n");
     printf("–stringToImage sampleImage.bmp inputText.txt\n");
-    printf("–stringToImage sampleImage.bmp inputText.txt\n");
+    printf("–imageToString sampleImage.bmp inputText.txt\n");
 }
 
 int main(int argc, char *argv[]){
@@ -116,8 +118,15 @@ int main(int argc, char *argv[]){
 		decodeText(image, length, argv[4]);
 		return 0;
 	}
-
-
-
+	if(strcmp(argv[1],"-stringToImage")==0){
+		char *newFile = malloc(sizeof(char)*(strlen(argv[2])));
+        strcpy(newFile,"new-");
+		strcat(newFile,argv[2]);
+		stringToImage(argv[2],argv[3],newFile);
+	}
+	if(strcmp(argv[1],"-imageToString")==0){
+		IMAGE *image = initImage(argv[2]);
+		imageToString(image);
+	}
     return 0;
 }

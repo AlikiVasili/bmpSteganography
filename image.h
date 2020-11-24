@@ -1,3 +1,9 @@
+/** @file imaeg.h
+ *  @brief This module represents an image.
+ *
+ *  @author Aliki Vasili
+ *  @bug No known bugs.
+ */
 #ifndef IMAGE_H
 #define IMAGE_H
 
@@ -20,7 +26,10 @@ typedef struct pixel{
 	byte byte3;
 }PIXEL;
 
-
+/**
+ * @brief This struct represents the bmpInfoHeader in a bmp image.
+ * 
+ */
 typedef struct BMPINFOHEADER{
 	dword biSize;
 	dword biWidth;
@@ -35,6 +44,10 @@ typedef struct BMPINFOHEADER{
 	dword biClrImportant;
 }BMPINFOHEADER;
 
+/**
+ * @brief This struct represents the bmpFileHeader in a bmp image.
+ * 
+ */
 typedef struct BMPFILEHEADER{
 	byte bfType1;
 	byte bfType2;
@@ -44,11 +57,19 @@ typedef struct BMPFILEHEADER{
 	dword bfOffBits;
 }BMPFILEHEADER;
 
+/**
+ * @brief This struct represents the header in a bmp image.
+ * 
+ */
 typedef struct header{
 	BMPFILEHEADER *bmpFileHeader;
 	BMPINFOHEADER *bmpInfoHeader;
 }HEADER;
 
+/**
+ * @brief This struct represents a bmp image.
+ * 
+ */
 typedef struct image{
 	HEADER *header;
 	PIXEL *pixels;

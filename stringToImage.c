@@ -54,7 +54,7 @@ static byte * saveText(const char *filename, int *textSize){
 	return text;
 }
 
-void stringToImage(const char *coverName,const char *textFile){
+void stringToImage(const char *coverName,const char *textFile,char *newFile){
 	int size=0;
 	byte *binaryText = saveText(textFile,&size);
 	IMAGE *cover = initImage(coverName);
@@ -85,7 +85,7 @@ void stringToImage(const char *coverName,const char *textFile){
 		}
 	}
 	//save the new image
-	saveImage(newImg,"testing.bmp");
+	saveImage(newImg,newFile);
 	//free the space we reseve in memory
 	deleteImage(newImg);
 }
