@@ -135,7 +135,10 @@ int main(int argc, char *argv[]){
 	}
 	/*if(strcmp(argv[1],"-imageToString")==0){
 		IMAGE *image = initImage(argv[2]);
+		if(image==NULL)
+            return EXIT_FAILURE;
 		imageToString(image);
+		deleteImage(image);
 	}*/
     return 0;
 }
