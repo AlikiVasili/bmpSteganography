@@ -1,4 +1,9 @@
-
+/** @file stringToImage.h
+ *  @brief This module create an image based on a given text.
+ *
+ *  @author Aliki Vasili
+ *  @bug No known bugs.
+ */
 #ifndef STRINGTOIMAGE_H
 #define STRINGTOIMAGE_H
 

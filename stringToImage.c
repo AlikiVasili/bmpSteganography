@@ -27,25 +27,28 @@ static byte * saveText(const char *filename, int *textSize){
 	int size = 0;
 	temp = (char * )malloc(sizeof(char));
 	
-	//read the text from the file
+	//read the text from the file and save it to temp
 	while(fscanf(file,"%c",&temp[size]) != EOF){
 		size++;
 		temp = (char * )realloc(temp,(size+1) * sizeof(char));
 	}
+	//close the file
 	fclose(file);
-	//save to the table text the text we read bit by bit
+	
+	//to the table text we will save the index of temp bit by bit
 	text = (byte *)malloc(sizeof(byte)* (size *8));
 	
 	//create a mask
 	byte mask = 128;
+	//create a temporary byte to save the bit we will read for the image
 	byte tempByte = 0;
 	int j = 0 , i =0; 
 	
-	//for every char of the text we read
+	//for every char of the text we read(temp)
 	for(i = 0; i < size; i++){
 		//save its 8 bits to the table text
 		for(j = 0;j <8 ;j++){
-			//shift the mask 
+			//shift the mask right by j
 			mask = mask >> j;
 			//find the bit we want from the character
 			//and save it to the tempByte
@@ -63,26 +66,31 @@ static byte * saveText(const char *filename, int *textSize){
 			mask = 128;
 		}
 	}
-	//save the size of the text
+	//free the temp
 	free(temp);
+	//save the size of the text
 	*textSize=size*8;
 	return text;
 }
 
 void stringToImage(const char *coverName,const char *textFile,char *newFile){
 	int size=0;
+	//binary text is the text bit by bit
 	byte *binaryText = saveText(textFile,&size);
 	if(binaryText==NULL){
 		return;
 	}
+	//open and read the given image
 	IMAGE *cover = initImage(coverName);
 	if(cover==NULL){
 		printf("Image file does not exist or is invalid.\n");
 		free(binaryText);
 		return;
 	}
-	//create a new image
+	
+	//create a new image based on the cover image
 	IMAGE *newImg = copyImage(cover);
+	//delete cover image
 	deleteImage(cover);
 	int i,j,k=0;	//k is a temporary counter - we count the size of the text
 	
@@ -93,6 +101,8 @@ void stringToImage(const char *coverName,const char *textFile,char *newFile){
 		newImg->pixels[i].byte2&=0;
 		newImg->pixels[i].byte3&=0;
 	}
+	
+	//save to the right places in the image the right bit of the text
 	for(i=0;i<newImg->header->bmpInfoHeader->biWidth;i++){
 		//starting from the pixel at the left up corner
 		for(j=newImg->header->bmpInfoHeader->biHeight-1;j>=0;j--){
@@ -109,18 +119,24 @@ void stringToImage(const char *coverName,const char *textFile,char *newFile){
 			}
 		}
 	}
+	//free the space we reseve for binaryText in memory 
 	free(binaryText);
-	//save the new image
+	//save the new image to the newFile
 	saveImage(newImg,newFile);
-	//free the space we reseve in memory
+	//free the space we reseve in memory for the image(delete the image)
 	deleteImage(newImg);
 }
 
 
 #ifdef DEBUG5
+#include <assert.h>
 int main(void){
+	stringToImage("tux-pirate.bmp","strFile.txt","testing.txt");	//create an image testing from the strFile.txt
+	FILE *f;
+	assert((f=fopen("testing.bmp","rb"))!=NULL);	//Try and open the file that must be created
+	fclose(f);
 	
-	stringToImage("tux-pirate.bmp","strFile.txt");
-	
+	int size = 0;
+	assert((saveText("strFile.txt",&size)) != NULL);	//check the function saveText
 }
 #endif
