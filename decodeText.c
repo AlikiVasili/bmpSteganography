@@ -66,6 +66,8 @@ void decodeText(IMAGE *image , int msgLength, char *filename){
 	
 	//print the message in the file
 	fprintf(file,"%s\n" , text);
+	fclose(file);
+	free(permutation);
 	free(text);
 }
 

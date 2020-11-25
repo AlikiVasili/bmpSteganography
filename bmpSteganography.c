@@ -29,7 +29,6 @@ static void listOptions(){
 }
 
 int main(int argc, char *argv[]){
-    //printf("%d\n",argc);
     if(argc<=2){
         printf("bmpSteganography.c -- <-option> image1.bmp [image2.bmp image3.bmp ...]\n");
         printf("\nThis is free software; you can redistribute it and/or\n");
@@ -105,6 +104,8 @@ int main(int argc, char *argv[]){
     }
 	if(strcmp(argv[1],"-encodeText")==0){
 		IMAGE *image = initImage(argv[2]);
+        if(image==NULL)
+            return EXIT_FAILURE;
 		char *filename = malloc(sizeof(char)*(strlen(argv[2])));
         strcpy(filename,"new-");
 		encodeText(image,argv[3],strcat(filename,argv[2]));
@@ -116,6 +117,7 @@ int main(int argc, char *argv[]){
 		IMAGE *image = initImage(argv[2]);
 		int length = atoi(argv[3]);
 		decodeText(image, length, argv[4]);
+        deleteImage(image);
 		return 0;
 	}
 	if(strcmp(argv[1],"-stringToImage")==0){

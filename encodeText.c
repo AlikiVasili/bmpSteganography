@@ -36,7 +36,7 @@ void encodeText(IMAGE *image, char *filename,char *newFile){
 		size++;
 		m = (char *)realloc(m,sizeof(char) * (size+1));
 	}
-	
+	fclose(f);
 	int msgBitLength = ( 1 + strlen(m) )* 8;
 	
 	//do (1+strlen(m))*8 time the followings
