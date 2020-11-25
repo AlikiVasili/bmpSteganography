@@ -37,9 +37,13 @@ PUBLIC void imageToString(const IMAGE *coverImage){
 	fclose(output);
 }
 #ifdef DEBUG7
+#include "assert.h"
 int main(void){
 	IMAGE *cover = initImage("testing.bmp");
 	imageToString(cover);
 	deleteImage(cover);
+	IMAGE *test= initImage("testing.bmp");
+	assert(test!=NULL);
+	deleteImage(test);
 }
 #endif
