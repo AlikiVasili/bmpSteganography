@@ -29,6 +29,7 @@ static void listOptions(){
 }
 
 int main(int argc, char *argv[]){
+    //Check if the minimum amount of arguments has been given.
     if(argc<=2){
         printf("bmpSteganography.c -- <-option> image1.bmp [image2.bmp image3.bmp ...]\n");
         printf("\nThis is free software; you can redistribute it and/or\n");
@@ -40,8 +41,9 @@ int main(int argc, char *argv[]){
     }
     int i;
     if(strcmp(argv[1],"-list")==0){
+        //Call list for all images given.
         for(i=2;i<argc;i++){
-            IMAGE *img = initImage(argv[i]);
+            IMAGE *img = initImage(argv[i]); 
             if(img!=NULL){
                 list(img);
                 printf("\n************************************************************\n");
@@ -53,20 +55,22 @@ int main(int argc, char *argv[]){
     if(strcmp(argv[1],"-grayscale")==0){
         for(i=2;i<argc;i++){
             IMAGE *img = initImage(argv[i]);
+            //Check if the image was opened.
             if(img!=NULL){
-                char *filename = malloc(sizeof(char)*(strlen(argv[i])+10));
+                char *filename = malloc(sizeof(char)*(strlen(argv[i])+10)); //Create the new file name
                 strcpy(filename,"grayscale-");
-                grayscale_filter(img,strcat(filename,argv[i]));
+                grayscale_filter(img,strcat(filename,argv[i])); //Apply the effect
                 free(filename);
-                deleteImage(img);
+                deleteImage(img);   //Free the allocated memory
             }
         }
         return 0;
     }
     if(strcmp(argv[1],"-encodeStegano")==0){
-        int  bits = atoi(argv[2]);
-        if(bits<=0){
+        int  bits = atoi(argv[2]); //Amount of bits to encode
+        if(bits<=0 || bits>=8){
             printf("Incorrect format or input. Correct format is –encodeStegano nbBits coverImage.bmp secretImage.bmp\n");
+            printf("nbBits has to be a integer between 1-7\n");
             return EXIT_FAILURE;
         }
         IMAGE *cover = initImage(argv[3]);
@@ -75,12 +79,12 @@ int main(int argc, char *argv[]){
             printf("Incorrect format or input. Correct format is –encodeStegano nbBits coverImage.bmp secretImage.bmp\n");
             return EXIT_FAILURE;
         }
-        char *filename = malloc(sizeof(char)*(strlen(argv[3])+4));
+        char *filename = malloc(sizeof(char)*(strlen(argv[3])+4)); //Create new image name
         strcpy(filename,"new-");
         strcat(filename,argv[3]);
-        encodeStegano(cover,secret,bits,filename);
+        encodeStegano(cover,secret,bits,filename);  //create the new image
         free(filename);
-        deleteImage(cover);
+        deleteImage(cover);             //free the allocated memory.
         deleteImage(secret);
     }
     if(strcmp(argv[1],"-decodeStegano")==0){
@@ -94,30 +98,32 @@ int main(int argc, char *argv[]){
             printf("Incorrect format or input. Correct format is –encodeStegano nbBits encryptedImage.bmp\n");
             return EXIT_FAILURE;
         }
-        char *filename = malloc(sizeof(char)*(strlen(argv[3])+4));
+        char *filename = malloc(sizeof(char)*(strlen(argv[3])+4)); //Create new image name
         strcpy(filename,"new-");
         strcat(filename,argv[3]);
-        decodeStegano(cover,bits,filename);
+        decodeStegano(cover,bits,filename); //Decrypt image
         free(filename);
-        deleteImage(cover);
+        deleteImage(cover);     //free allocated memory.
         return 0;
     }
 	if(strcmp(argv[1],"-encodeText")==0){
 		IMAGE *image = initImage(argv[2]);
         if(image==NULL)
             return EXIT_FAILURE;
-		char *filename = malloc(sizeof(char)*(strlen(argv[2])));
+		char *filename = malloc(sizeof(char)*(strlen(argv[2])));    //Create new image name
         strcpy(filename,"new-");
-		encodeText(image,argv[3],strcat(filename,argv[2]));
+		encodeText(image,argv[3],strcat(filename,argv[2]));     //Encrypt text.
 		free(filename);
-		deleteImage(image);
+		deleteImage(image);         //free allocated memory.
         return 0;
     }
 	if(strcmp(argv[1],"-decodeText")==0){
 		IMAGE *image = initImage(argv[2]);
+        if(image==NULL)
+            return EXIT_FAILURE;
 		int length = atoi(argv[3]);
-		decodeText(image, length, argv[4]);
-        deleteImage(image);
+		decodeText(image, length, argv[4]);     //Decrypt the text.
+        deleteImage(image);     //Free allocated memory.
 		return 0;
 	}
 	if(strcmp(argv[1],"-stringToImage")==0){

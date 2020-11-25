@@ -1,3 +1,7 @@
+/* This is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License, see the file COPYING.
+*/
 /**
  * @file encodeStegano.c
  * @author Panagiotis Papadopoulos

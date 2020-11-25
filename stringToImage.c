@@ -1,3 +1,7 @@
+/* This is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License, see the file COPYING.
+*/
 #include "stringToImage.h"
 
 /**
@@ -15,7 +19,7 @@ static byte * saveText(const char *filename, int *textSize){
 	byte *text;
 	//open the file
 	if((file = fopen(filename,"r"))== NULL){
-		printf("File %s cannot be open!\n)", filename);
+		printf("File %s cannot be opened.\n", filename);
 		return NULL;
 	}
 	
@@ -68,7 +72,15 @@ static byte * saveText(const char *filename, int *textSize){
 void stringToImage(const char *coverName,const char *textFile,char *newFile){
 	int size=0;
 	byte *binaryText = saveText(textFile,&size);
+	if(binaryText==NULL){
+		return;
+	}
 	IMAGE *cover = initImage(coverName);
+	if(cover==NULL){
+		printf("Image file does not exist or is invalid.\n");
+		free(binaryText);
+		return;
+	}
 	//create a new image
 	IMAGE *newImg = copyImage(cover);
 	deleteImage(cover);

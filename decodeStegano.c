@@ -1,3 +1,12 @@
+/* This is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public
+* License, see the file COPYING.
+*/
+
+/**
+ * @file decodeStegano.c
+ * @author Panagiotis Papadopoulos
+ */
 #include "decodeStegano.h"
 void decodeStegano(const IMAGE *cover, unsigned short int numOfBits, const char* newFileName){
     IMAGE *secret = copyImage(cover);
