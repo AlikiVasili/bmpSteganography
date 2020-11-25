@@ -11,16 +11,6 @@
 #include "image.h"
 
 /**
- *	@brief This function calculade the u(n) bit of the given text.
- *
- *	@param char_*_m The text.
- *	@param int_n A number we want to know can bit we want.
- *
- *	@return the u(n) bit.
- */
-//static int getBit(char *m, int n);
-
-/**
  *	@brief This function create a permutation.
  *
  *	@param int_N An integer number which shows the size of the table we want to create.
