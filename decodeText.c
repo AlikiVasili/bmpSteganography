@@ -4,20 +4,10 @@
 * License, see the file COPYING.
 */
 #include "decodeText.h"
-/**
- *	@brief This function add to a character a bit based on n.
- *
- * 	@param byte_tempByte The byte that we got from the image
- *	@param int_msgLength The size of the secret text.
- *	@param int_n A number that we want to find the place from where we take the bit.
- *	@param char_t The charcter that we want to change.
- *
- *	@return The character we change.
- */
-static char editChar(byte tempByte , int msgLength, int n, char t);
 
 void decodeText(IMAGE *image , int msgLength, char *filename){
 	int msgBitLength = ( 1 + msgLength) * 8;
+	
 	//create the permutation table
 	int *permutation = createPermutationFunction(getPixelAmount(image),100);
 	
@@ -88,12 +78,14 @@ static char editChar(byte tempByte , int msgLength, int n, char t){
 #ifdef DEBUG4
 #include <assert.h>
 int main(){
-	IMAGE *img = initImage("new-tux-bonaparte.bmp");
-	int msgLength = 280;
-	decodeText(img,msgLength,"testing.txt");
+	IMAGE *img = initImage("new-tux-bonaparte.bmp");	//take the image new-tux-bonaparte
+	int msgLength = 280;	
+	decodeText(img,msgLength,"testing.txt");	//find the text that has in it
 	FILE *f;
 	assert((f=fopen("testing.bmp","rb"))!=NULL);	//Try and open the file that must be created
-	fclose(f);
-	deleteImage(img);
+	fclose(f);	//close the file
+	deleteImage(img);	//delete the image
+	
+	assert(editChar(0,1,8,0) == 0);	//check the function editChar
 }
 #endif
