@@ -125,6 +125,7 @@ int main(int argc, char *argv[]){
         strcpy(newFile,"new-");
 		strcat(newFile,argv[2]);
 		stringToImage(argv[2],argv[3],newFile);
+        free(newFile);
 	}
 	/*if(strcmp(argv[1],"-imageToString")==0){
 		IMAGE *image = initImage(argv[2]);

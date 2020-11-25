@@ -28,7 +28,7 @@ static byte * saveText(const char *filename, int *textSize){
 		size++;
 		temp = (char * )realloc(temp,(size+1) * sizeof(char));
 	}
-	
+	fclose(file);
 	//save to the table text the text we read bit by bit
 	text = (byte *)malloc(sizeof(byte)* (size *8));
 	
@@ -60,6 +60,7 @@ static byte * saveText(const char *filename, int *textSize){
 		}
 	}
 	//save the size of the text
+	free(temp);
 	*textSize=size*8;
 	return text;
 }
@@ -70,10 +71,12 @@ void stringToImage(const char *coverName,const char *textFile,char *newFile){
 	IMAGE *cover = initImage(coverName);
 	//create a new image
 	IMAGE *newImg = copyImage(cover);
+	deleteImage(cover);
 	int i,j,k=0;	//k is a temporary counter - we count the size of the text
 	
 	//make all the pixels of the new image black RGB=(0,0,0)
-	for(i=0;i<getPixelAmount(cover);i++){
+	int pixelAmount=getPixelAmount(newImg);
+	for(i=0;i<pixelAmount;i++){
 		newImg->pixels[i].byte1&=0;
 		newImg->pixels[i].byte2&=0;
 		newImg->pixels[i].byte3&=0;
@@ -94,6 +97,7 @@ void stringToImage(const char *coverName,const char *textFile,char *newFile){
 			}
 		}
 	}
+	free(binaryText);
 	//save the new image
 	saveImage(newImg,newFile);
 	//free the space we reseve in memory
