@@ -1,8 +1,12 @@
-/* 
-* This is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License, see the file COPYING.
-*/
+ /* 
+ * This is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License, see the file COPYING.
+ */
+ /**
+ *  @author Aliki Vasili
+ *  @bug No known bugs.
+ */
 #include "encodeText.h"
 /**
  *	@brief This function calculade the u(n) bit of the given text.
@@ -12,9 +16,9 @@
  *
  *	@return the u(n) bit.
  */
-static int getBit(char *m, int n);
+PRIVATE int getBit(char *m, int n);
 
-void encodeText(IMAGE *image, char *filename,char *newFile){
+PUBLIC void encodeText(IMAGE *image, char *filename,char *newFile){
 	int i = 0;
 	int b = 0, o = 0;
 	//systemkey = 100
@@ -71,7 +75,7 @@ void encodeText(IMAGE *image, char *filename,char *newFile){
 	
 }
 
-static int getBit(char *m, int n){
+PRIVATE int getBit(char *m, int n){
 	int i = 0, j = 0;
 	
 	byte mask = 1; //create a default mask
@@ -102,7 +106,7 @@ static int getBit(char *m, int n){
 	}
 }
 
-int * createPermutationFunction(int N, unsigned int systemkey){
+PUBLIC int * createPermutationFunction(int N, unsigned int systemkey){
 	//create a table
 	int *table = NULL;
 	//reseve space in memory for the table

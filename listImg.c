@@ -3,7 +3,7 @@
  */ 
 #include "listImg.h"
 
-void list(const IMAGE *img){
+PUBLIC void list(const IMAGE *img){
     printf("BITMAP_FILE_HEADER\n");
     printf("==================\n");
     printf("bfType: %c%c\n", img -> header -> bmpFileHeader -> bfType1, img -> header -> bmpFileHeader -> bfType2 ); 

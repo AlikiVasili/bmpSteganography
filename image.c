@@ -1,8 +1,12 @@
-/* 
-* This is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License, see the file COPYING.
-*/
+ /* 
+ * This is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License, see the file COPYING.
+ */
+ /**
+ *  @author Aliki Vasili
+ *  @bug No known bugs.
+ */
 #include "image.h"
 /**
  * @brief This function checks if a given IMAGE is a bmp file
@@ -12,16 +16,16 @@
  * @return int 1 if there is no compression and 
  * the color depth is 24-bits, 0 if otherwise.
  */
-static int isUncompressed24bit(const IMAGE *img);
+PRIVATE int isUncompressed24bit(const IMAGE *img);
 /**
  * @brief This function checks if a given IMAGE is a bmp file or not.
  * 
  * @param IMAGE_*_img THE IMAGE to be cjecked.
  * @return int 1 if the IMAGE is a bmp file 0 if otherwise.
  */
-static int isBmp(const IMAGE *img);
+PRIVATE int isBmp(const IMAGE *img);
 
-void deleteImage(IMAGE *img){
+PUBLIC void deleteImage(IMAGE *img){
 	//if image is null return
 	if(img==NULL)
 		return;
@@ -39,7 +43,7 @@ void deleteImage(IMAGE *img){
 	//delete the img pointer
 	free(img);
 }
-static int isBmp(const IMAGE *img){
+PRIVATE int isBmp(const IMAGE *img){
 	//if the image is null return 0
 	if(img==NULL)
 		return 0;
@@ -55,7 +59,7 @@ static int isBmp(const IMAGE *img){
 	//else return 0
 	return 0;
 }
-static int isUncompressed24bit(const IMAGE *img){
+PRIVATE int isUncompressed24bit(const IMAGE *img){
 	//if the image is not bitmap image return 0
 	if(!isBmp(img))
 		return 0;
@@ -66,7 +70,7 @@ static int isUncompressed24bit(const IMAGE *img){
 	return 0;
 }
 
-IMAGE *copyImage(const IMAGE *src){
+PUBLIC IMAGE *copyImage(const IMAGE *src){
 	//Initialize new image.
 	IMAGE *cpy = NULL;
 	cpy =(IMAGE *) malloc(sizeof(IMAGE));
@@ -107,11 +111,11 @@ IMAGE *copyImage(const IMAGE *src){
 	return cpy;
 }
 
-int getPixelAmount(const IMAGE *src){
+PUBLIC int getPixelAmount(const IMAGE *src){
 	return src->padding_pixels + src->header->bmpInfoHeader->biHeight * src->header->bmpInfoHeader->biWidth;
 }
 
-IMAGE * initImage(const char *fileName){
+PUBLIC IMAGE * initImage(const char *fileName){
 	FILE *file=NULL;
 	IMAGE *image = NULL;
 	//Allocate space for all pointers.
@@ -186,7 +190,7 @@ IMAGE * initImage(const char *fileName){
 	return image;
 }
 
-void saveImage(const IMAGE *src, const char *imageName){
+PUBLIC void saveImage(const IMAGE *src, const char *imageName){
 	FILE *output = fopen(imageName,"wb"); //Create a new file with the given name.
 
 	//Save the file header info in the file (If we copy directly the padding gets copied as well).

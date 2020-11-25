@@ -7,4 +7,4 @@
  * 
  * @param const_IMAGE_*_img The Image whose header we want to print.
  */
-void list(const IMAGE *img);
+PUBLIC void list(const IMAGE *img);

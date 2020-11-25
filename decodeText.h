@@ -17,7 +17,7 @@
  *
  *	@return Void.
  */
-void decodeText(IMAGE *image , int msgLength, char *filename);
+PUBLIC void decodeText(IMAGE *image , int msgLength, char *filename);
 
 
 #endif

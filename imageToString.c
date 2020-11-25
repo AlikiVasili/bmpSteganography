@@ -1,6 +1,15 @@
+ /* 
+ * This is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License, see the file COPYING.
+ */
+ /**
+ *  @author Panagiotis Papadopoulos
+ *  @bug No known bugs.
+ */
 #include "imageToString.h"
 
-void imageToString(const IMAGE *coverImage){
+PUBLIC void imageToString(const IMAGE *coverImage){
 	FILE *output = fopen("outputText.txt","w");
 	char *text = malloc(sizeof(char));
 	char tempChar=0;

@@ -18,6 +18,6 @@
  * @param const_char_*_textFile The name of the text file to be encrypted. 
  * @param char_*_newFile The name of the new image that will be created.
  */
-void stringToImage(const char *cover,const char *textFile,char *newFile);
+PUBLIC void stringToImage(const char *cover,const char *textFile,char *newFile);
 
 #endif

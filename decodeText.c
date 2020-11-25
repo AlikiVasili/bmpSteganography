@@ -1,9 +1,15 @@
-/* 
-* This is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License, see the file COPYING.
-*/
+ /* 
+ * This is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License, see the file COPYING.
+ */
+ /**
+ *  @author Aliki Vasili
+ *  @bug No known bugs.
+ */
 #include "decodeText.h"
+#define PRIVATE static
+#define PUBLIC
 
 /**
  *	@brief This function add to a character a bit based on n.
@@ -15,9 +21,9 @@
  *
  *	@return The character we change.
  */
-static char editChar(byte tempByte , int msgLength, int n, char t);
+PRIVATE char editChar(byte tempByte , int msgLength, int n, char t);
 
-void decodeText(IMAGE *image , int msgLength, char *filename){
+PUBLIC void decodeText(IMAGE *image , int msgLength, char *filename){
 	int msgBitLength = ( 1 + msgLength) * 8;
 	
 	//create the permutation table
@@ -73,7 +79,7 @@ void decodeText(IMAGE *image , int msgLength, char *filename){
 	free(text);
 }
 
-static char editChar(byte tempByte , int msgLength, int n, char t){
+PRIVATE char editChar(byte tempByte , int msgLength, int n, char t){
 	int j = 0;
 
 	//if n is between 0 and 8*strlen(m)

@@ -3,13 +3,17 @@
 * modify it under the terms of the GNU General Public
 * License, see the file COPYING.
 */
+ /**
+ *  @author Aliki Vasili
+ *  @bug No known bugs.
+ */
 #include "grayscale.h"
 /**
  * @brief This function rounds the given number.
  * 
  * @param double_x The number we want to round.
  */
-static int my_round(double x);
+PRIVATE int my_round(double x);
 /**
  * @brief This function calculate the luminance of a pixel.
  * 
@@ -17,9 +21,9 @@ static int my_round(double x);
  * @param byte_greem The second(green) byte of the pixel.
  * @param byte_blue The third(blue) byte of the pixel.
  */
-static int calculate_luminance(byte red,byte green,byte blue);
+PRIVATE int calculate_luminance(byte red,byte green,byte blue);
 
-void grayscale_filter(IMAGE *image, char *file){
+PUBLIC void grayscale_filter(IMAGE *image, char *file){
 	//if image is null then return
 	if(image == NULL)
 		return;
@@ -42,14 +46,14 @@ void grayscale_filter(IMAGE *image, char *file){
 	deleteImage(cover);
 }
 
-static int my_round(double x){
+PRIVATE int my_round(double x){
 	if (x < 0.0)
 		return (int)(x - 0.5);
     else
         return (int)(x + 0.5);
 }
 
-static int calculate_luminance(byte red,byte green,byte blue){
+PRIVATE int calculate_luminance(byte red,byte green,byte blue){
 	int luminance  = 0;
 	double ntsc = 0;
 	//calculate the National Television System Committe (NTSC)

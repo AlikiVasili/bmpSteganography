@@ -5,12 +5,11 @@
 /**
  * @file encodeStegano.c
  * @author Panagiotis Papadopoulos
- * @brief This file contains the source code for the encodeStegano library.
  * 
  */
 #include "encodeStegano.h"
 
-void encodeStegano(const IMAGE *coverImage, const IMAGE *secret, unsigned short int bitNum, const char *newFileName){
+PUBLIC void encodeStegano(const IMAGE *coverImage, const IMAGE *secret, unsigned short int bitNum, const char *newFileName){
     IMAGE *cover = copyImage(coverImage);
     if(cover==NULL || secret == NULL)
         return;

@@ -6,6 +6,8 @@
  */
 #ifndef IMAGE_H
 #define IMAGE_H
+#define PRIVATE static
+#define PUBLIC
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -83,33 +85,33 @@ typedef struct image{
  * @param char_*_fileName The name of the file to be opened.
  * @return IMAGE* The pointer to that IMAGE struct.
  */
-IMAGE *initImage(const char *fileName);
+PUBLIC IMAGE *initImage(const char *fileName);
 /**
  * @brief This function deletes an IMAGE struct from memory.
  * 
  * @param IMAGE_*_img The IMAGE to be deleted.
  */
-void deleteImage(IMAGE *img);
+PUBLIC void deleteImage(IMAGE *img);
 /**
  * @brief This function creates a copy of a given IMAGE.
  * 
  * @param const_IMAGE_*_src The IMAGE to be copied.
  * @return IMAGE* The copy of the given IMAGE or NULL in case of failure.
  */
-IMAGE *copyImage(const IMAGE *src);
+PUBLIC IMAGE *copyImage(const IMAGE *src);
 /**
  * @brief This function saves an IMAGE in a file with a given filename.
  * 
  * @param const_IMAGE_*_src The IMAGE to be saved.
  * @param const_char_*_imageName The filename.
  */
-void saveImage(const IMAGE *src, const char *imageName);
+PUBLIC void saveImage(const IMAGE *src, const char *imageName);
 /**
  * @brief This function retruns the amount of pixels in the IMAGE struct.
  * 
  * @param const_IMAGE_*_src The IMAGE whose pixel amount to get.
  * @return int The amount of pixels including padding pixels.
  */
-int getPixelAmount(const IMAGE *src);
+PUBLIC int getPixelAmount(const IMAGE *src);
 
 #endif

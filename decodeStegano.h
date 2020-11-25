@@ -12,4 +12,4 @@
  * @param unsigned_short_int_numOfBits The number of bits that where used in steganography.
  * @param const_char_*_newFileName The filename to be given to the image file.
  */
-void decodeStegano(const IMAGE *cover, unsigned short int numOfBits, const char *newFileName);
+PUBLIC void decodeStegano(const IMAGE *cover, unsigned short int numOfBits, const char *newFileName);

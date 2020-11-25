@@ -15,6 +15,6 @@
  * @param IMAGE_*_image The bmp image which will be turn into grayscale.
  * @param char_*_file The file name of the bmp file that has the image.
  */
-void grayscale_filter(IMAGE *image, char *file);
+PUBLIC void grayscale_filter(IMAGE *image, char *file);
 
 #endif

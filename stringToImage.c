@@ -12,9 +12,9 @@
  * @param int_*_textSize A pointer to an integer where the size of the resulting binary table will be saved.
  * @return byte* The resulting binary representation as a table of bytes. 
  */
-static byte * saveText(const char *filename, int *textSize);
+PRIVATE byte * saveText(const char *filename, int *textSize);
 
-static byte * saveText(const char *filename, int *textSize){
+PRIVATE byte * saveText(const char *filename, int *textSize){
 	FILE *file = NULL;
 	byte *text;
 	//open the file
@@ -73,7 +73,7 @@ static byte * saveText(const char *filename, int *textSize){
 	return text;
 }
 
-void stringToImage(const char *coverName,const char *textFile,char *newFile){
+PUBLIC void stringToImage(const char *coverName,const char *textFile,char *newFile){
 	int size=0;
 	//binary text is the text bit by bit
 	byte *binaryText = saveText(textFile,&size);

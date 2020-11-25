@@ -1,6 +1,7 @@
 /** 
- *	@file encodeText.h
- *  @brief This module encodes a text into an image.
+ *	@file imageToString.h
+ *  @brief This module decrypts an image to a string and save
+ *	the string in a text file named output.txt.
  *
  *  @author Panagiotis Papadopoulos
  *  @bug No known bugs.
@@ -10,7 +11,14 @@
 
 #include "image.h"
 
-void imageToString(const IMAGE *coverImage);
+/**
+*@brief This function takes an image and tranforms it to a string
+* and then proceed to save that string in a text file named output.txt
+*
+*@param const_IMAGE_*_coverImage The image to be decrypted back to a string.
+*@return void.
+*/
+PUBLIC void imageToString(const IMAGE *coverImage);
 
 
 #endif

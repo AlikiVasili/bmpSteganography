@@ -18,7 +18,7 @@
  *
  *	@return the table that we create.
  */
-int * createPermutationFunction(int N, unsigned int systemkey);
+PUBLIC int * createPermutationFunction(int N, unsigned int systemkey);
 
 /**
  *	@brief This function encode a text to an image.
@@ -29,6 +29,6 @@ int * createPermutationFunction(int N, unsigned int systemkey);
  *
  *	@return Void.
  */
-void encodeText(IMAGE *image,char *filename,char *newFile);
+PUBLIC void encodeText(IMAGE *image,char *filename,char *newFile);
 
 #endif
