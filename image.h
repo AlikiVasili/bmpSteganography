@@ -1,4 +1,4 @@
-/** @file imaeg.h
+/** @file image.h
  *  @brief This module represents an image.
  *
  *  @author Aliki Vasili

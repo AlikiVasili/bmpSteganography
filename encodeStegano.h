@@ -2,6 +2,8 @@
  * @file encodeStegano.h
  * @author Panagiotis Papadopoulos
  * @brief This file contains the function with which one bmp image file can be steganographied in another.
+ *
+ * @bug No known bugs.
  */
 #include "image.h"
 /**

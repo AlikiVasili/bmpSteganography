@@ -2,6 +2,8 @@
  * @file decodeStegano.h
  * @author Panagiotis Papadopoulos
  * @brief This library contains the function to decode a steganographied bmp image from a cover image.
+ *
+ * @bug No known bugs.
  * 
  */
 #include "image.h"

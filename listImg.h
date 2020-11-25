@@ -1,5 +1,8 @@
-/** @file listImg.c
+/** @file listImg.h
  *  @author Panagiotis Papadopoulos
+ *	@brief This module contains a function to list the header of a bmp image.
+ *
+ *  @bug No known bugs.
  */ 
 #include "image.h"
 /**
