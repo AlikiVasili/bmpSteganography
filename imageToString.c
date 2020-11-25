@@ -24,11 +24,13 @@ void imageToString(const IMAGE *coverImage){
 		}
 	}
 	fwrite(text,sizeof(char),size,output);
+	free(text);
 	fclose(output);
 }
 #ifdef DEBUG7
 int main(void){
 	IMAGE *cover = initImage("testing.bmp");
 	imageToString(cover);
+	deleteImage(cover);
 }
 #endif

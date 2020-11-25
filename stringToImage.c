@@ -131,12 +131,15 @@ void stringToImage(const char *coverName,const char *textFile,char *newFile){
 #ifdef DEBUG5
 #include <assert.h>
 int main(void){
-	stringToImage("tux-pirate.bmp","strFile.txt","testing.txt");	//create an image testing from the strFile.txt
-	FILE *f;
+	stringToImage("tux-pirate.bmp","strFile.txt","testing.bmp");	//create an image testing from the strFile.txt
+	FILE *f=NULL;
 	assert((f=fopen("testing.bmp","rb"))!=NULL);	//Try and open the file that must be created
 	fclose(f);
 	
 	int size = 0;
-	assert((saveText("strFile.txt",&size)) != NULL);	//check the function saveText
+	byte *testSaveText = saveText("strFile.txt",&size);	//check the function saveText
+	assert(testSaveText!=NULL);
+	free(testSaveText);
+	return 0;
 }
 #endif

@@ -6,7 +6,6 @@
 * License, see the file COPYING.
 */
 
-#include <string.h>
 #include "decodeStegano.h"
 #include "encodeStegano.h"
 #include "decodeText.h"
@@ -14,7 +13,7 @@
 #include "grayscale.h"
 #include "listImg.h"
 #include "stringToImage.h"
-//#include "imageToString.h"
+#include "imageToString.h"
 
 static void listOptions(){
     printf("Available functions:\n");
@@ -30,7 +29,7 @@ static void listOptions(){
 
 int main(int argc, char *argv[]){
     //Check if the minimum amount of arguments has been given.
-    if(argc<=2){
+    if(argc<=1){
         printf("bmpSteganography.c -- <-option> image1.bmp [image2.bmp image3.bmp ...]\n");
         printf("\nThis is free software; you can redistribute it and/or\n");
         printf("modify it under the terms of the GNU General Public\n");
@@ -127,18 +126,18 @@ int main(int argc, char *argv[]){
 		return 0;
 	}
 	if(strcmp(argv[1],"-stringToImage")==0){
-		char *newFile = malloc(sizeof(char)*(strlen(argv[2])));
+		char *newFile = malloc(sizeof(char)*(strlen(argv[2]))); //Create new file name
         strcpy(newFile,"new-");
 		strcat(newFile,argv[2]);
-		stringToImage(argv[2],argv[3],newFile);
-        free(newFile);
+		stringToImage(argv[2],argv[3],newFile);	//Create the new image
+        free(newFile);		//Free allocated memory.
 	}
-	/*if(strcmp(argv[1],"-imageToString")==0){
-		IMAGE *image = initImage(argv[2]);
+	if(strcmp(argv[1],"-imageToString")==0){
+		IMAGE *image = initImage(argv[2]);	//Open image
 		if(image==NULL)
             return EXIT_FAILURE;
-		imageToString(image);
-		deleteImage(image);
-	}*/
+		imageToString(image);	//Create text file output.txt
+		deleteImage(image);		//Free allocated memory.
+	}
     return 0;
 }
